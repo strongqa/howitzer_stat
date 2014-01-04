@@ -37,6 +37,10 @@ class DataCacher
     @data.key? key
   end
 
+  def cached_pages
+    @data.keys
+  end
+
   def set(page_class, stat)
     key = normalize_page_class(page_class)
     @data[key] = stat if key
@@ -50,7 +54,7 @@ class DataCacher
   private
 
   def normalize_page_class(page_class)
-    page_class = page_class.to_s.downcase
+    page_class = page_class.to_s
     if page_class.empty? || page_class.nil?
       nil
     else
@@ -100,6 +104,9 @@ class HowitzerStat < Sinatra::Base
       SexySettings::Base.instance
     end
 
+    def identify_page(url, title)
+      "TestPage" || "UnknownPage" #TODO Implement me
+    end
   end
 
   # --  API  --
@@ -111,6 +118,16 @@ class HowitzerStat < Sinatra::Base
       dc.get(params[:page_class]).to_json
     else
       json_status 404, "Page '#{params[:page_class]}' was not found"
+    end
+  end
+
+  get '/page_classes', :provides => :json do
+    content_type :json
+    status 200
+    if params[:url] && params[:title]
+      {page: identify_page(params[:url], params[:title])}.to_json
+    else
+      dc.cached_pages.to_json
     end
   end
 

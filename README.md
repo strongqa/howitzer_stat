@@ -49,6 +49,47 @@ config.ru is a minimal Rack configuration for unicorn.
 
 The REST API to the app is described below.
 
+## Get all Page Classes
+
+### Request
+
+`GET /page_classes`
+
+    curl -i -H 'Accept: application/json' http://localhost:7000/page_classes
+
+### Response
+
+    HTTP/1.1 200 OK
+    Date: Sat, 04 Jan 2014 15:13:14 GMT
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json;charset=utf-8
+    Content-Length: 12
+    X-Content-Type-Options: nosniff
+
+    ["testpage"]
+
+## Get Page Classe by title and url
+
+### Request
+
+`GET /page_classes?url=<current page url>&title=<current page title>`
+
+    curl -i -H 'Accept: application/json' http://localhost:7000/page_classes?url=http://test.com&title=Welcome%20to%20Test%20Site
+
+### Response
+
+    HTTP/1.1 200 OK
+    Date: Sat, 04 Jan 2014 15:20:49 GMT
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json;charset=utf-8
+    Content-Length: 19
+    X-Content-Type-Options: nosniff
+
+    {"page":"TestPage"}
+
+
 ## Get statistic for specific Page Class
 
 ### Request
@@ -67,7 +108,7 @@ The REST API to the app is described below.
     Content-Length: 215
     X-Content-Type-Options: nosniff
 
-    [{"feature":{"name":"...","description":"...","path_to_file":"...","line":1},"scenarios":[{"scenario":{"name":"...","line":10},"steps":[{"text":"...","line":11,"used":"yes"},{"text":"...","line":12,"used":"no"}]}]}]%
+    [{"feature":{"name":"...","description":"...","path_to_file":"...","line":1},"scenarios":[{"scenario":{"name":"...","line":10},"steps":[{"text":"...","line":11,"used":"yes"},{"text":"...","line":12,"used":"no"}]}]}]
 
 ## Get statistic for a non-existent Page Class
 

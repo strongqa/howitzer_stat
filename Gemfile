@@ -4,4 +4,5 @@ gem "sexy_settings"
 gem 'sinatra'
 gem 'json'
 gem 'unicorn'
+gem 'cucumber'
 gem 'debugger'
