@@ -8,20 +8,29 @@ GEM
       debugger-ruby_core_source (~> 1.3.1)
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.3.1)
+    json (1.8.1)
+    kgio (2.8.1)
     rack (1.5.2)
     rack-protection (1.5.1)
       rack
+    raindrops (0.12.0)
     sexy_settings (0.0.1)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (~> 1.3, >= 1.3.4)
     tilt (1.4.1)
+    unicorn (4.7.0)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   debugger
+  json
   sexy_settings
   sinatra
+  unicorn
