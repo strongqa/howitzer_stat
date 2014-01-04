@@ -37,7 +37,7 @@ config.ru is a minimal Rack configuration for unicorn.
 
 **Ruby 2.0+**
 
-    ## Install
+## Install
 
     bundle install
 
