@@ -62,7 +62,7 @@ class HowitzerStat < Sinatra::Base
     if params[:url] && params[:title]
       {page: pi.identify_page(params[:url], params[:title])}.to_json
     else
-      dc.cached_pages.to_json
+      pi.all_pages.to_json
     end
   end
 

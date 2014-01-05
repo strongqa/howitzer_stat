@@ -8,6 +8,10 @@ class PageIdentifier
     parse_pages
   end
 
+  def all_pages
+    @validations.keys
+  end
+
   def identify_page(url, title)
     raise ArgumentError, "Url and title can not be blank. Actual: url=#{url}, title=#{title}" if url.nil? || url.empty? || title.nil? || title.empty?
     @validations.inject([]) do |res, (page, validation_data)|

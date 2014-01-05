@@ -67,7 +67,7 @@ The REST API to the app is described below.
     Content-Length: 12
     X-Content-Type-Options: nosniff
 
-    ["testpage"]
+    ["TestPage"]
 
 ## Get Page Classe by title and url
 
