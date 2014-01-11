@@ -1,3 +1,4 @@
+require 'sexy_settings'
 SexySettings.configure do |config|
   config.path_to_project = __dir__
   config.path_to_default_settings = File.join(__dir__, '..', 'config', "default.yml")

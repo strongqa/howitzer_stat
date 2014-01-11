@@ -1,27 +1,70 @@
-#####
-# TODO remove me after debug
-require 'rubygems'
-require 'bundler/setup'
-
-Bundler.require
-#####
-
-require 'json'
-require 'cucumber/cli/main'
-require_relative './sexy_settings_config'
-
 class CucumberParser
-  def initialize(args)
-    main = Cucumber::Cli::Main.new(args)
-    @runtime = Cucumber::Runtime.new(main.configuration)
+  include Singleton
+
+  def initialize
+    smart_chdir do
+      options = "-r features --tags ~@wip --dry-run".split(/\s+/)
+      stdout = StringIO.new
+      main = Cucumber::Cli::Main.new(options, STDIN, stdout)
+      @runtime = Cucumber::Runtime.new(main.configuration)
+    end
   end
 
   def run
-    @runtime.run!
-    parse_features
+    smart_chdir do
+      @runtime.run!
+      prepare_page_matchers
+      @parsed_data = parse_features
+      @page_matchers.each do |page, matcher|
+        API.data_cacher.set(page, filter_features_by_page(matcher))
+      end
+    end
   end
 
   private
+
+  def filter_features_by_page(matcher)
+    res = {}
+    res[:features] = Marshal.load(Marshal.dump(@parsed_data[:features])).select do |feature|
+      used_feature = false
+      feature[:scenarios] = feature[:scenarios].select do |scenario|
+        used_scenario = false
+        background = scenario[:background]
+        background && background[:steps].each do |step|
+          if !step[:pre_req] && matcher === step[:name]
+            step[:used] = true
+            used_scenario = true
+            used_feature = true
+          end
+        end
+        scenario[:steps].each do |step|
+          if !step[:pre_req] && matcher === step[:name]
+            step[:used] = true
+            used_scenario = true
+            used_feature = true
+          end
+        end
+        used_scenario
+      end
+      used_feature
+    end
+    res
+  end
+
+  def prepare_page_matchers
+    @page_matchers = API.page_identifier.all_pages.sort.reverse.inject({}) do |res, page|
+      under_scored_str = page.gsub(/([^\^])([A-Z])/,'\1 \2').downcase
+      res[page] = /#{Regexp.escape(under_scored_str)}:?\s*\z/i
+      res
+    end
+  end
+
+  def smart_chdir
+    dir = Dir.pwd
+    Dir.chdir API.settings.path_to_source
+    yield
+    Dir.chdir dir
+  end
 
   def parse_features
     res = {features: []}
@@ -50,7 +93,7 @@ class CucumberParser
         description: feature_element.description,
         path_to_file: feature_element.file,
         line: feature_element.line,
-        steps: parse_steps(feature_element)
+        steps: set_pre_req_or_no(parse_steps(feature_element))
       }
     end
     res
@@ -94,15 +137,24 @@ class CucumberParser
     end
     res
   end
+
+  def set_pre_req_or_no(steps)
+    last_prereq = false
+    steps.map do |step|
+      new_keyword = step[:keyword].to_s.upcase.strip
+      if new_keyword == 'GIVEN' || (last_prereq && new_keyword == 'AND')
+        step[:pre_req] = true
+        last_prereq = true
+      else
+        last_prereq = false
+      end
+      step
+    end
+  end
 end
 
-
-#TODO move line below to appropriate ruby file
-
-Dir.chdir API.settings.path_to_source
-
-options = "-r features --expand --tags ~@wip --lines --no-snippets --dry-run".split(/\s+/)
-
-puts CucumberParser.new(options).run.to_json
-
-exit 1
+module API
+  def self.cucumber_parser
+    @cp ||= CucumberParser.instance
+  end
+end

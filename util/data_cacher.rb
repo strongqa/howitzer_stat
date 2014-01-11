@@ -1,5 +1,3 @@
-require_relative './sexy_settings_config'
-
 class DataCacher
   HASH_EXAMPLE = [
       {
@@ -23,31 +21,32 @@ class DataCacher
 
   include Singleton
   def initialize
-    @data = {}
-    @data.default = {}
-    @data['testpage'] = HASH_EXAMPLE
+    @data = {cucumber: {}, rspec: {}}
+    @data[:cucumber].default = {}
+    @data[:rspec].default = {}
+    @data[:cucumber]['testpage'] = HASH_EXAMPLE
   end
 
-  def page_cached?(page_class)
+  def page_cached?(page_class, type=:cucumber)
     key = normalize_page_class(page_class)
-    @data.key? key
+    @data[type].key? key
   end
 
-  def cached_pages
-    @data.keys
+  def cached_pages(type=:cucumber)
+    @data[type].keys
   end
 
-  def set(page_class, stat)
+  def set(page_class, stat, type=:cucumber)
     key = normalize_page_class(page_class)
-    @data[key] = stat if key
+    @data[type][key] = stat if key
   end
 
-  def get(page_class)
+  def get(page_class, type=:cucumber)
     key = normalize_page_class(page_class)
-    @data[key]
+    @data[type][key]
   end
 
-  private
+private
 
   def normalize_page_class(page_class)
     page_class = page_class.to_s
@@ -56,5 +55,11 @@ class DataCacher
     else
       page_class
     end
+  end
+end
+
+module API
+  def self.data_cacher
+    @dc ||= DataCacher.instance
   end
 end

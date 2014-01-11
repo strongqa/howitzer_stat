@@ -1,5 +1,3 @@
-require_relative './sexy_settings_config'
-
 class PageIdentifier
   NoValidationError = Class.new(StandardError)
   include Singleton
@@ -67,4 +65,10 @@ class PageIdentifier
     inner_pattern
   end
 
+end
+
+module API
+  def self.page_identifier
+    @pi ||= PageIdentifier.instance
+  end
 end

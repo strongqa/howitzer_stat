@@ -4,8 +4,7 @@ require 'singleton'
 
 Bundler.require
 
-require_relative './util/data_cacher'
-require_relative './util/page_identifier'
+require_relative './util/init'
 
 class HowitzerStat < Sinatra::Base
 
@@ -36,11 +35,11 @@ class HowitzerStat < Sinatra::Base
     end
 
     def dc
-      DataCacher.instance
+      API.data_cacher
     end
 
     def pi
-      PageIdentifier.instance
+      API.page_identifier
     end
   end
 
