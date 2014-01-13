@@ -3,9 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Example of HTML5 layout</title>
-    <!--[if lt IE 9]>
-    <script src="/js/html5.js"></script>
-    <![endif]-->
     <style type="text/css">
         .stat-left {left:0;z-index:2147483643;position:fixed;top:0;}
         .stat-result {font-family:Helvetica, Arial, sans-serif;color:#555;line-height:1;font-size:12px;}
@@ -17,11 +14,127 @@
         .stat-number {color:#111111;font-family:Consolas, monospace, serif;}
         .stat-button.active .stat-number{color:#fff;font-weight:bold;}
         .stat-popup {
-            top: -1px;max-height: 534px;left: 68px;display: block;display:block;z-index:2147483641;position:absolute;
+            top: -1px;max-height: 534px;left: 68px;display:block;z-index:2147483641;position:absolute;
             background:#fff;border:1px solid #aaa;padding:5px 10px;text-align:left;line-height:18px;overflow:auto;
             -webkit-box-shadow:0 1px 15px #555555;box-shadow:0px 1px 15px #555555;
         }
+        #templateTarget {font-size: 10px;color: black;}
+        .used-step {font-weight: bold;}
+        .cucumber, td, th {font: normal 11px "Lucida Grande", Helvetica, sans-serif;background: white;color: black;}
+        .cucumber .scenario h3, td .scenario h3, th .scenario h3 {padding:3px;margin:0;}
+        .cucumber div.feature, td div.feature, th div.feature {padding:2px;margin:0px 10px 5px 10px;}
+        .cucumber .step_name, td .step_name, th .step_name {float:left;}
+        .cucumber .step_file, td .step_file, th .step_file {text-align:right;color:#999999;}
+        .cucumber .scenario_file, td .scenario_file, th .scenario_file {float:right;color:#999999;}
+        .cucumber .tag, td .tag, th .tag {font-weight: bold;color:#246ac1;}
+        .cucumber table, td table, th table {border-collapse:collapse;}
+        .cucumber table td, td table td, th table td {padding:3px 3px 3px 5px;}
+        .cucumber ol, td ol, th ol {list-style:none;margin:0px;padding: 0px;}
+        .cucumber ol li.step, td ol li.step, th ol li.step {padding:3px 3px 3px 18px;margin:3px 0px 3px 5px;}
+        .cucumber ol li.passed, td ol li.passed, th ol li.passed {border-left:5px solid #65c400;border-bottom:1px solid #65c400;background:#dbffb4;color:#3d7700;}
     </style>
+    <script type="text/javascript" src="http://underscorejs.org/underscore-min.js"></script>
+    <script type="text/template" id="cucumberStat">
+        <div class="cucumber">
+            <% _.each(features,function(feature,key,list){ %>
+            <div class="feature">
+                <span class="tag"><%=feature.tags%></span>
+                <div class="background">
+                    <span class="scenario_file"><%=feature.path_to_file%>:<span><%=feature.line%></span></span>
+                    <h2><span class="val">Feature: <%=feature.name%></span></h2>
+                    <p class="narrative"><%=feature.description.split("\n")[0]%></br>
+                        <%=feature.description.split("\n")[1]%></br>
+                        <%=feature.description.split("\n")[2]%></br></p>
+                </div>
+                <% _.each(feature.scenarios,function(scenario,key,list){ %>
+                <% if (scenario.background != null){ %>
+                <div class="background">
+                    <span class="scenario_file"><%=scenario.background.path_to_file%>:<span><%=scenario.background.line%></span></span>
+                    <h3><span class="keyword"><%=scenario.background.keyword%></span> <span class="val"></span></h3>
+                    <ol>
+                        <% _.each(scenario.background.steps, function(step,key,list){ %>
+                        <li class="step passed">
+                            <div class="step_name">
+                                <span class="keyword"><%=step.keyword%></span>
+                                <% if (step.used == null) { %>
+                                <span class="step val"><%=step.name%></span>
+                                <% } else { %>
+                                <span class="used-step"><%=step.name%></span>
+                                <% } %>
+                            </div>
+                            <div class="step_file"><span><%=step.path_to_file%>:<span><%=step.line%></span></span></div>
+                            <% if (step.multiline_arg != null){ if (step.multiline_arg.type == "table"){ %>
+                            <table>
+                                <% _.each(step.multiline_arg.content, function(rows,key,list){ %>
+                                <tr class="step">
+                                    <% _.each(rows, function(row,key,list){ %>
+                                    <td class="step"><div><span class="step param"><%=row%></span></div></td>
+                                    <% }); %>
+                                </tr>
+                                <% }); %>
+                            </table>
+                            <% } %>
+                            <% if (step.multiline_arg.type == "doc_string"){ %>
+                            <pre class="val"><%=step.multiline_arg.content%></pre>
+                            <% } %>
+                            <% } %>
+                        </li>
+                        <% }); %>
+                    </ol>
+                </div>
+                <% } %>
+                <div class="scenario">
+                    <span class="tag"><%=scenario.tags%></span>
+                    <span class="scenario_file"><%=scenario.path_to_file%>:<span><%=scenario.line%></span></span>
+                    <h3><span class="keyword"><%=scenario.keyword%>: </span><span class="val"><%=scenario.title%></span></h3>
+                    <ol>
+                        <% _.each(scenario.steps, function(step,key,list){ %>
+                        <li class="step passed">
+                            <div class="step_name">
+                                <span class="keyword"><%=step.keyword%> </span>
+                                <% if (step.used == null){ %>
+                                <span class="step val"><%=step.name%></span>
+                                <% } else { %>
+                                <span class="used-step"><%=step.name%></span>
+                                <% } %>
+                            </div>
+                            <div class="step_file"><span><%=step.path_to_file%>:<%=step.line%></span></div>
+                            <% if (step.multiline_arg != null) { if (step.multiline_arg.type == "table"){ %>
+                            <table>
+                                <% _.each(step.multiline_arg.content, function(rows,key,list){ %>
+                                <tr class="step">
+                                    <% _.each(rows, function(row,key,list){ %>
+                                    <td class="step"><div><span class="step param"><%=row%></span></div></td>
+                                    <% }); %>
+                                </tr>
+                                <% }); %>
+                            </table>
+                            <% } %>
+                            <% if (step.multiline_arg.type == "doc_string"){ %>
+                            <pre class="val"><%=step.multiline_arg.content%></pre>
+                            <% } %>
+                            <% } %>
+                        </li>
+                        <% }); %>
+                    </ol>
+                </div>
+                <% }); %>
+            </div>
+            <% }); %>
+        </div>
+    </script>
+    <script type="text/javascript">
+        var request = new XMLHttpRequest();
+        request.open("GET", "cach.json", false);
+        request.send(null);
+        var featuresArray = JSON.parse(request.responseText).cucumber.ReportsPage.features; //for testing only
+        //var featuresArray = JSON.parse(request.responseText).features; //original
+        window.onload = function() {
+            var scriptTag = document.getElementById('cucumberStat');
+            var target = document.getElementById('stat-info');
+            target.innerHTML = _.template(scriptTag.innerHTML, {features : featuresArray});
+        }
+    </script>
 </head>
 <body>
 <div class="stat-left">
@@ -32,7 +145,7 @@
             </span>
         </div>
        <div class="stat-popup">
-           <div class="stat-info">
+           <div id="stat-info">
                Here should be placed underscore template
            </div>
        </div>
