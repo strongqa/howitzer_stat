@@ -8,7 +8,14 @@ require_relative './util/init'
 
 class HowitzerStat < Sinatra::Base
 
+  # -- Configuration --
+  before do
+    headers 'Access-Control-Allow-Origin' => '*',
+            'Access-Control-Allow-Methods' => ['GET']
+  end
+
   set :methodoverride, true
+  set :protection, false
 
   # -- Sinatra helpers --
 

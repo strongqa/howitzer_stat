@@ -3,37 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Example of HTML5 layout</title>
-    <style type="text/css">
-        .stat-left {left:0;z-index:2147483643;position:fixed;top:0;}
-        .stat-result {font-family:Helvetica, Arial, sans-serif;color:#555;line-height:1;font-size:12px;}
-        .stat-button {
-            display:block;border-bottom-right-radius:10px;border-right:1px solid #888888;z-index:2147483640;
-            border-bottom:1px solid #888888;background-color:#fff;padding:4px 7px;text-align:right;cursor:pointer;
-        }
-        .stat-button.active {background-color:maroon;}
-        .stat-number {color:#111111;font-family:Consolas, monospace, serif;}
-        .stat-button.active .stat-number{color:#fff;font-weight:bold;}
-        .stat-popup {
-            top: -1px;max-height: 534px;left: 68px;display:block;z-index:2147483641;position:absolute;
-            background:#fff;border:1px solid #aaa;padding:5px 10px;text-align:left;line-height:18px;overflow:auto;
-            -webkit-box-shadow:0 1px 15px #555555;box-shadow:0px 1px 15px #555555;
-        }
-        #templateTarget {font-size: 10px;color: black;}
-        .used-step {font-weight: bold;}
-        .cucumber, td, th {font: normal 11px "Lucida Grande", Helvetica, sans-serif;background: white;color: black;}
-        .cucumber .scenario h3, td .scenario h3, th .scenario h3 {padding:3px;margin:0;}
-        .cucumber div.feature, td div.feature, th div.feature {padding:2px;margin:0px 10px 5px 10px;}
-        .cucumber .step_name, td .step_name, th .step_name {float:left;}
-        .cucumber .step_file, td .step_file, th .step_file {text-align:right;color:#999999;}
-        .cucumber .scenario_file, td .scenario_file, th .scenario_file {float:right;color:#999999;}
-        .cucumber .tag, td .tag, th .tag {font-weight: bold;color:#246ac1;}
-        .cucumber table, td table, th table {border-collapse:collapse;}
-        .cucumber table td, td table td, th table td {padding:3px 3px 3px 5px;}
-        .cucumber ol, td ol, th ol {list-style:none;margin:0px;padding: 0px;}
-        .cucumber ol li.step, td ol li.step, th ol li.step {padding:3px 3px 3px 18px;margin:3px 0px 3px 5px;}
-        .cucumber ol li.passed, td ol li.passed, th ol li.passed {border-left:5px solid #65c400;border-bottom:1px solid #65c400;background:#dbffb4;color:#3d7700;}
-    </style>
+    <link href="howitzer_stat.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="http://underscorejs.org/underscore-min.js"></script>
+    <script type="text/javascript" src="howitzer_stat.js"></script>
     <script type="text/template" id="cucumberStat">
         <div class="cucumber">
             <% _.each(features,function(feature,key,list){ %>
@@ -123,33 +95,13 @@
             <% }); %>
         </div>
     </script>
-    <script type="text/javascript">
-        var request = new XMLHttpRequest();
-        request.open("GET", "cach.json", false);
-        request.send(null);
-        var featuresArray = JSON.parse(request.responseText).cucumber.ReportsPage.features; //for testing only
-        //var featuresArray = JSON.parse(request.responseText).features; //original
-        window.onload = function() {
-            var scriptTag = document.getElementById('cucumberStat');
-            var target = document.getElementById('stat-info');
-            target.innerHTML = _.template(scriptTag.innerHTML, {features : featuresArray});
-        }
-    </script>
 </head>
 <body>
 <div class="stat-left">
-    <div class="stat-result">
-        <div class="stat-button active">
-            <span class="stat-number">
-                TestPage
-            </span>
+    <div id="stat-result">
+        <div id="stat-popup">
         </div>
-       <div class="stat-popup">
-           <div id="stat-info">
-               Here should be placed underscore template
-           </div>
-       </div>
     </div>
-    </div>
+</div>
 </body>
 </html>
