@@ -9,7 +9,7 @@ require 'bundler/capistrano'
 require 'capistrano_colors'
 
 set :application, "howitzer_stat"
-set :repository,  "git@github.com:romikoops/howitzer_stat.git"
+set :repository,  "https://github.com/romikoops/howitzer_stat.git"
 set :domain, "strongqa.com"
 set :deploy_via, :remote_cache
 set :scm, :git
