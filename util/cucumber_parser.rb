@@ -3,7 +3,7 @@ class CucumberParser
 
   def initialize
     smart_chdir do
-      options = "-r features --tags ~@wip --dry-run".split(/\s+/)
+      options = "-r features -f progress --tags ~@wip --dry-run".split(/\s+/)
       stdout = StringIO.new
       main = Cucumber::Cli::Main.new(options, STDIN, stdout)
       @runtime = Cucumber::Runtime.new(main.configuration)
