@@ -5,3 +5,7 @@ application: howitzer_stat
 domain: localhost
 user: deployer
 deploy_to: /opt/www/${application}
+
+# -- Unicorn settings
+worker_processes: 2
+port: 80

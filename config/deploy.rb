@@ -1,7 +1,7 @@
 # Bundler tasks
 require 'bundler/capistrano'
 require 'capistrano_colors'
-require_relative './sexy_settings_config'
+require File.expand_path('sexy_settings_config', File.dirname(__FILE__))
 
 set :application, API.settings.application
 set :repository,  "https://github.com/romikoops/howitzer_stat.git"

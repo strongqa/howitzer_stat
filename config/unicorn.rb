@@ -1,5 +1,7 @@
+require File.expand_path('sexy_settings_config', File.dirname(__FILE__))
+
 # define paths and filenames
-deploy_to = "/opt/www/howitzer_stat"
+deploy_to = API.settings.deploy_to
 rails_root = "#{deploy_to}/current"
 pid_file = "#{deploy_to}/shared/pids/unicorn.pid"
 socket_file= "#{deploy_to}/shared/unicorn.sock"
@@ -8,9 +10,9 @@ err_log = "#{rails_root}/log/unicorn_error.log"
 old_pid = pid_file + '.oldbin'
 
 timeout 30
-worker_processes 2 # increase or decrease
+worker_processes API.settings.worker_processes
 listen socket_file, :backlog => 1024
-listen 8080, :tcp_nopush => true
+listen API.settings.port, :tcp_nopush => true
 
 pid pid_file
 stderr_path err_log
