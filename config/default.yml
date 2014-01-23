@@ -1,1 +1,7 @@
-path_to_source: <Specify full path here to folder with test project code>
+path_to_source: "<Specify full path here to folder with test project code>"
+
+# -- Capistrano settings
+application: howitzer_stat
+domain: localhost
+user: deployer
+deploy_to: /opt/www/${application}

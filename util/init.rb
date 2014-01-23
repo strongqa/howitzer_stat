@@ -4,7 +4,7 @@ require 'json'
 require 'cucumber/cli/main'
 require 'debugger'
 
-require_relative './sexy_settings_config'
+require_relative '../config/sexy_settings_config'
 require_relative './page_identifier'
 require_relative './data_cacher'
 require_relative './cucumber_parser'

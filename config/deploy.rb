@@ -1,16 +1,11 @@
-# We're using RVM on a server, need this.
-#$:.unshift(File.expand_path('./lib', ENV['rvm_path']))
-#require 'rvm/capistrano'
-#set :rvm_ruby_string, '1.9.3'
-#set :rvm_type, :user
-
 # Bundler tasks
 require 'bundler/capistrano'
 require 'capistrano_colors'
+require_relative './sexy_settings_config'
 
-set :application, "howitzer_stat"
+set :application, API.settings.application
 set :repository,  "https://github.com/romikoops/howitzer_stat.git"
-set :domain, "strongqa.com"
+set :domain, API.settings.domain
 set :deploy_via, :remote_cache
 set :scm, :git
 
@@ -21,7 +16,7 @@ set(:run_method) { use_sudo ? :sudo : :run }
 # This is needed to correctly handle sudo password prompt
 default_run_options[:pty] = true
 
-set :user, "deployer"
+set :user, API.settings.user
 set :group, user
 set :runner, user
 set :ssh_options, { :forward_agent => true }
@@ -32,7 +27,7 @@ set :rails_env, "production"
 set :keep_releases, 5
 
 # Where will it be located on a server?
-set :deploy_to, "/opt/www/#{application}"
+set :deploy_to, API.settings.deploy_to
 set :unicorn_conf, "#{deploy_to}/current/config/unicorn.rb"
 set :unicorn_pid, "#{deploy_to}/shared/pids/unicorn.pid"
 
