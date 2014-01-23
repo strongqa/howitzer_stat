@@ -32,7 +32,6 @@ class PageIdentifier
   private
 
   def parse_pages
-    raise "PATH to source: #{API.settings.path_to_source}"
     Dir[File.join(API.settings.path_to_source, 'pages', '**', '*_page.rb')].each do |f|
       source = remove_comments(IO.read(f))
       page_name = parse_page_name(source)
