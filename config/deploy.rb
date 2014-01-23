@@ -36,6 +36,10 @@ set :deploy_to, "/opt/www/#{application}"
 set :unicorn_conf, "#{deploy_to}/current/config/unicorn.rb"
 set :unicorn_pid, "#{deploy_to}/shared/pids/unicorn.pid"
 
+before 'deploy:create_symlink', :roles => :app do
+  run "ln -s #{deploy_to}/shared/config/custom.yml #{current_release}/config/custom.yml"
+end
+
 # Unicorn control tasks
 namespace :deploy do
   task :restart do
