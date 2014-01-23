@@ -1,8 +1,8 @@
 require 'sexy_settings'
 SexySettings.configure do |config|
-  config.path_to_project = __dir__
-  config.path_to_default_settings = File.join(__dir__, '..', 'config', "default.yml")
-  config.path_to_custom_settings = File.join(__dir__, '..', 'config', "custom.yml")
+  config.path_to_project = File.expand_path(File.dirname(__FILE__), '..' )
+  config.path_to_default_settings = File.join(config.path_to_project, 'config', "default.yml")
+  config.path_to_custom_settings = File.join(config.path_to_project, 'config', "custom.yml")
 end
 
 module API
