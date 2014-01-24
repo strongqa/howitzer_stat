@@ -1,10 +1,10 @@
-path_to_source: "<Specify full path here to folder with test project code>"
+path_to_source: "full_path_to_folder_with_howitzer_project"
 
 # -- Capistrano settings
 application: howitzer_stat
 domain: localhost
 user: deployer
-deploy_to: /opt/www/${application}
+deploy_to: /var/www/${application}
 
 # -- Unicorn settings
 worker_processes: 2
