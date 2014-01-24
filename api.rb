@@ -4,7 +4,7 @@ require 'singleton'
 
 Bundler.require
 
-require_relative './util/init'
+require_relative './lib/init'
 
 class HowitzerStat < Sinatra::Base
 
