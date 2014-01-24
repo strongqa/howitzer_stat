@@ -53,17 +53,8 @@ var featuresByClassNameHandler = function(data){
     featuresByClassName = JSON.parse(data).features;
 };
 
-//xdr('GET', {"pageName": 'SearchPage'}, featuresByClassNameHandler, errorHandler); // for testing
-//xdr('GET', {"url": 'http://rdv5.reportdrop.net/passwordreset', "title": 'Report Drop | passwordreset'}, pageClassesByTitleAndUrlHandler, errorHandler);
 xdr('GET', {"url": document.url, "title": document.title}, pageClassesByTitleAndUrlHandler, errorHandler);
 xdr('GET', {"pageName": pageClassesByTitleAndUrl[0]}, featuresByClassNameHandler, errorHandler); //to production
-
-// For testing only
-//      var request = new XMLHttpRequest();
-//      request.open("GET", "cach.json", false);
-//      request.send(null);
-//      var featuresArray = JSON.parse(request.responseText).cucumber.ReportsPage.features;
-//      var featuresArray = JSON.parse(request.responseText).features;
 
 var pagesDiv; //main stats container
 var popupDiv; //popup container
