@@ -32,6 +32,8 @@ set :deploy_to, API.settings.deploy_to
 set :unicorn_conf, "#{deploy_to}/current/config/unicorn.rb"
 set :unicorn_pid, "#{deploy_to}/shared/pids/unicorn.pid"
 
+set :normalize_asset_timestamps, false
+
 after "deploy:setup", :roles => :app do
   run "mkdir -p #{deploy_to}/shared/config"
   put YAML.dump(API.settings.custom), "#{deploy_to}/shared/config/custom.yml"
