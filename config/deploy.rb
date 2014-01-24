@@ -34,6 +34,7 @@ set :unicorn_pid, "#{deploy_to}/shared/pids/unicorn.pid"
 
 after "deploy:setup", :roles => :app do
   run "mkdir -p #{deploy_to}/shared/config"
+  put API.settings.custom.to_yml, "#{deploy_to}/shared/config/custom.yml"
 end
 
 before 'deploy:create_symlink', :roles => :app do
