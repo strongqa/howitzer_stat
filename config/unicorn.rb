@@ -1,7 +1,7 @@
 require File.expand_path('sexy_settings_config', File.dirname(__FILE__))
 
 # define paths and filenames
-deploy_to = API.settings.deploy_to
+deploy_to = File.expand_path(File.join(File.dirname(__FILE__), '..', '..'))
 rails_root = "#{deploy_to}/current"
 pid_file = "#{deploy_to}/shared/pids/unicorn.pid"
 socket_file= "#{deploy_to}/shared/unicorn.sock"

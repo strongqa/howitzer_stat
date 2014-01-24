@@ -23,6 +23,7 @@ set :ssh_options, { :forward_agent => true }
 
 role :web, domain
 role :app, domain
+role :db,  domain, :primary => true
 set :rails_env, "production"
 set :keep_releases, 5
 
@@ -30,6 +31,10 @@ set :keep_releases, 5
 set :deploy_to, API.settings.deploy_to
 set :unicorn_conf, "#{deploy_to}/current/config/unicorn.rb"
 set :unicorn_pid, "#{deploy_to}/shared/pids/unicorn.pid"
+
+after "deploy:setup", :roles => :app do
+  run "mkdir -p #{deploy_to}/shared/config"
+end
 
 before 'deploy:create_symlink', :roles => :app do
   run "ln -s #{deploy_to}/shared/config/custom.yml #{current_release}/config/custom.yml"

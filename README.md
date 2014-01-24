@@ -69,7 +69,7 @@ The REST API to the app is described below.
 
     ["TestPage"]
 
-## Get Page Classe by title and url
+## Get Page Class by title and url
 
 ### Request
 
