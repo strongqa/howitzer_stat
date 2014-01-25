@@ -2,7 +2,7 @@
     // method to make AJAX request to web-service
     function xdr(method, data, callback, errback) {
         var req, url;
-        var serviceDomain = "http://checklist.reportdrop.net:8001"; // add here domain of web-service where howitzer_stat is working
+        var serviceDomain = "http://localhost:7000"; // add here domain of web-service where howitzer_stat is working
 
         if (data.pageName) {
             url = serviceDomain + "/pages/" + data.pageName;
@@ -61,15 +61,15 @@
             pageNameElement.setAttribute('data-page-name', pageName);
             statButton.addEventListener('click', function () {
                 if (this.className.indexOf('non-active') >= 0) {
-                    if (document.getElementById('stat-info').innerHTML == ''){
+                    if (document.getElementById('how_stat_info').innerHTML == ''){
                         pageNameElement.innerHTML = 'Loading...';
                         xdr('GET', {"pageName": pageName}, featuresByClassNameHandler, errorHandler);
                     } else {
-                        document.getElementById('stat-popup').setAttribute('style','display: block;');
+                        document.getElementById('how_stat_popup').setAttribute('style','display: block;');
                         this.className = this.className.replace('non-active', 'active');
                     }
                 } else {
-                    document.getElementById('stat-popup').setAttribute('style','display: none;');
+                    document.getElementById('how_stat_popup').setAttribute('style','display: none;');
                     this.className = this.className.replace('active', 'non-active');
                 }
             });
@@ -79,8 +79,14 @@
 
     var featuresByClassNameHandler = function(data){
         var template = document.getElementById('cucumberStat').innerHTML;
-        document.getElementById('stat-info').innerHTML = _.template(template, {features: JSON.parse(data).features});
-        document.getElementById('stat-popup').setAttribute('style','display: block;');
+        var statDataElement = document.getElementById('how_stat_info');
+        var featuresData = JSON.parse(data).features;
+        if (featuresData == ''){
+            statDataElement.innerHTML = 'There is no tests that include this page.';
+        } else {
+            statDataElement.innerHTML = _.template(template, {features: featuresData});
+        }
+        document.getElementById('how_stat_popup').setAttribute('style','display: block;');
         var statButton = document.getElementById('howitzer_stat_btn');
         statButton.className = statButton.className.replace('non-active', 'active');
         var pageNameElement = document.getElementById('howitzer_stat_page_name');
