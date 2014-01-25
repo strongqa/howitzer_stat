@@ -94,6 +94,6 @@
     };
 
     window.onload = function () {
-        xdr('GET', {"url": document.url, "title": document.title}, pageClassesByTitleAndUrlHandler, errorHandler);
+        xdr('GET', {url: document.URL || window.location.href, title: document.title}, pageClassesByTitleAndUrlHandler, errorHandler);
     };
 })();
