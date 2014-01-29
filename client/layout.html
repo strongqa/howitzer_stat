@@ -1,111 +1,108 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Example of HTML5 layout</title>
-    <link href="howitzer_stat.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="http://underscorejs.org/underscore-min.js"></script>
-    <script type="text/javascript" src="howitzer_stat.js"></script>
-    <script type="text/template" id="cucumberStat">
-        <div class="cucumber">
-            <% _.each(features,function(feature,key,list){ %>
-            <div class="feature">
-                <span class="tag"><%=feature.tags%></span>
-                <div class="background">
-                    <span class="scenario_file"><%=feature.path_to_file%>:<span><%=feature.line%></span></span>
-                    <h2><span class="val">Feature: <%=feature.name%></span></h2>
-                    <p class="narrative"><%=feature.description.split("\n")[0]%></br>
-                        <%=feature.description.split("\n")[1]%></br>
-                        <%=feature.description.split("\n")[2]%></br></p>
-                </div>
-                <% _.each(feature.scenarios,function(scenario,key,list){ %>
-                <% if (scenario.background != null){ %>
-                <div class="background">
-                    <span class="scenario_file"><%=scenario.background.path_to_file%>:<span><%=scenario.background.line%></span></span>
-                    <h3><span class="keyword"><%=scenario.background.keyword%></span> <span class="val"></span></h3>
-                    <ol>
-                        <% _.each(scenario.background.steps, function(step,key,list){ %>
-                        <li class="step passed">
-                            <div class="step_name">
-                                <span class="keyword"><%=step.keyword%></span>
-                                <% if (step.used == null) { %>
-                                <span class="step val"><%=step.name%></span>
-                                <% } else { %>
-                                <span class="used-step"><%=step.name%></span>
-                                <% } %>
-                            </div>
-                            <div class="step_file"><span><%=step.path_to_file%>:<span><%=step.line%></span></span></div>
-                            <% if (step.multiline_arg != null){ if (step.multiline_arg.type == "table"){ %>
-                            <table>
-                                <% _.each(step.multiline_arg.content, function(rows,key,list){ %>
-                                <tr class="step">
-                                    <% _.each(rows, function(row,key,list){ %>
-                                    <td class="step"><div><span class="step param"><%=row%></span></div></td>
-                                    <% }); %>
-                                </tr>
-                                <% }); %>
-                            </table>
-                            <% } %>
-                            <% if (step.multiline_arg.type == "doc_string"){ %>
-                            <pre class="val"><%=step.multiline_arg.content%></pre>
-                            <% } %>
-                            <% } %>
-                        </li>
-                        <% }); %>
-                    </ol>
-                </div>
-                <% } %>
-                <div class="scenario">
-                    <span class="tag"><%=scenario.tags%></span>
-                    <span class="scenario_file"><%=scenario.path_to_file%>:<span><%=scenario.line%></span></span>
-                    <h3><span class="keyword"><%=scenario.keyword%>: </span><span class="val"><%=scenario.title%></span></h3>
-                    <ol>
-                        <% _.each(scenario.steps, function(step,key,list){ %>
-                        <li class="step passed">
-                            <div class="step_name">
-                                <span class="keyword"><%=step.keyword%> </span>
-                                <% if (step.used == null){ %>
-                                <span class="step val"><%=step.name%></span>
-                                <% } else { %>
-                                <span class="used-step"><%=step.name%></span>
-                                <% } %>
-                            </div>
-                            <div class="step_file"><span><%=step.path_to_file%>:<%=step.line%></span></div>
-                            <% if (step.multiline_arg != null) { if (step.multiline_arg.type == "table"){ %>
-                            <table>
-                                <% _.each(step.multiline_arg.content, function(rows,key,list){ %>
-                                <tr class="step">
-                                    <% _.each(rows, function(row,key,list){ %>
-                                    <td class="step"><div><span class="step param"><%=row%></span></div></td>
-                                    <% }); %>
-                                </tr>
-                                <% }); %>
-                            </table>
-                            <% } %>
-                            <% if (step.multiline_arg.type == "doc_string"){ %>
-                            <pre class="val"><%=step.multiline_arg.content%></pre>
-                            <% } %>
-                            <% } %>
-                        </li>
-                        <% }); %>
-                    </ol>
-                </div>
-                <% }); %>
-            </div>
-            <% }); %>
+  <meta charset="UTF-8">
+  <title>Example of HTML5 layout</title>
+  <link href="howitzer_stat.css" rel="stylesheet" type="text/css">
+  <script type="text/javascript" src="http://underscorejs.org/underscore-min.js"></script>
+  <script type="text/javascript" src="howitzer_stat.js"></script>
+  <script type="text/template" id="cucumberStat">
+    <div class="cucumber">
+      <% _.each(features,function(feature,key,list){ %>
+      <div class="feature">
+        <span class="tag"><%=feature.tags%></span>
+        <div class="background">
+          <span class="scenario_file"><%=feature.path_to_file%>:<span><%=feature.line%></span></span>
+          <h2><span class="val">Feature: <%=feature.name%></span></h2>
+          <p class="narrative"><%=feature.description.split("\n")[0]%></br>
+            <%=feature.description.split("\n")[1]%></br>
+            <%=feature.description.split("\n")[2]%></br></p>
         </div>
-    </script>
+        <% _.each(feature.scenarios,function(scenario,key,list){ %>
+        <% if (scenario.background != null){ %>
+        <div class="background">
+          <span class="scenario_file"><%=scenario.background.path_to_file%>:<span><%=scenario.background.line%></span></span>
+          <h3><span class="keyword"><%=scenario.background.keyword%></span> <span class="val"></span></h3>
+          <ol>
+            <% _.each(scenario.background.steps, function(step,key,list){ %>
+            <li class="step <%= step.used == null ? 'skipped' : 'passed' %>">
+              <div class="step_name">
+                <span class="keyword"><%=step.keyword%></span>
+                <span class="step val"><%=step.name%></span>
+              </div>
+              <div class="step_file"><span><%=step.path_to_file%>:<span><%=step.line%></span></span></div>
+              <% if (step.multiline_arg != null){ if (step.multiline_arg.type == "table"){ %>
+              <table>
+                <% _.each(step.multiline_arg.content, function(rows,key,list){ %>
+                <tr class="step">
+                  <% _.each(rows, function(row,key,list){ %>
+                  <td class="step"><div><span class="step param"><%=row%></span></div></td>
+                  <% }); %>
+                </tr>
+                <% }); %>
+              </table>
+              <% } %>
+              <% if (step.multiline_arg.type == "doc_string"){ %>
+              <pre class="val"><%=step.multiline_arg.content%></pre>
+              <% } %>
+              <% } %>
+            </li>
+            <% }); %>
+          </ol>
+        </div>
+        <% } %>
+        <div class="scenario">
+          <span class="tag"><%=scenario.tags%></span>
+          <span class="scenario_file"><%=scenario.path_to_file%>:<span><%=scenario.line%></span></span>
+          <h3><span class="keyword"><%=scenario.keyword%>: </span><span class="val"><%=scenario.title%></span></h3>
+          <ol>
+            <% _.each(scenario.steps, function(step,key,list){ %>
+            <li class="step <%= step.used == null ? 'skipped' : 'passed' %>">
+              <div class="step_name">
+                <span class="keyword"><%=step.keyword%> </span>
+                <span class="step val"><%=step.name%></span>
+              </div>
+              <div class="step_file"><span><%=step.path_to_file%>:<%=step.line%></span></div>
+              <% if (step.multiline_arg != null) { if (step.multiline_arg.type == "table"){ %>
+              <table>
+                <% _.each(step.multiline_arg.content, function(rows,key,list){ %>
+                <tr class="step">
+                  <% _.each(rows, function(row,key,list){ %>
+                  <td class="step"><div><span class="step param"><%=row%></span></div></td>
+                  <% }); %>
+                </tr>
+                <% }); %>
+              </table>
+              <% } %>
+              <% if (step.multiline_arg.type == "doc_string"){ %>
+              <pre class="val"><%=step.multiline_arg.content%></pre>
+              <% } %>
+              <% } %>
+            </li>
+            <% }); %>
+          </ol>
+        </div>
+        <% }); %>
+      </div>
+      <% }); %>
+    </div>
+  </script>
 </head>
 <body>
+<!--<div id="howitzer_stat_btn" class='how-stat-button non-active btntrans' style='display: none;'>-->
+  <!--<span id="howitzer_stat_page_name" class='how-stat-number btntrans'></span>-->
+<!--</div>-->
 <div class="how-stat-left">
-    <div id="how_stat_result">
-        <!--<div id="howitzer_stat_btn" class='how-stat-button non-active' style='display: none;'>-->
-        <!--<span id="howitzer_stat_page_name" class='how-stat-number'></span>-->
-        <!--</div>-->
-        <div id="how_stat_popup" style="display: none;">
-            <div id="how_stat_info"></div>
-        </div>
+  <div id="how_stat_result">
+
+    <div id="how_stat_popup" style="display: none;">
+      <a class="how_stat_popup__link" href="#">Collapse All</a>
+      <a class="how_stat_popup__link" href="#">Expand All</a>
+      <div class="clearfix"></div>
+      <div class="how_stat_popup__close">x</div>
+      <div id="how_stat_info"></div>
     </div>
+  </div>
 </div>
 </body>
 </html>
