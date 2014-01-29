@@ -66,7 +66,6 @@
 .hs-button.active .stat-number{ color: #fff; font-weight: bold; }
 
 #hs_popup {
-    position: relative;
     display: block;
     z-index: 2147483641;
     background: #fff;
@@ -78,6 +77,9 @@
     -webkit-box-shadow: 0 1px 15px #555555;
     box-shadow: 0px 1px 15px #555555;
     margin: 10px 5% 0;
+    position: absolute;
+    top: 0;
+    width: 88.5%;
 }
 
 #hs_popup p.narrative {
