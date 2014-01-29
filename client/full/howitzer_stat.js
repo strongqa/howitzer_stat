@@ -2,8 +2,9 @@ window.howitzer_stat_url = "http://localhost:7000"; //change it!
 (function() {
   // - General -
 
-  function xdr(method, url, callback, errback) {
+  function xdr(method, data, callback, errback) {
     var req;
+    var url = buildUrl(data);
     if (XMLHttpRequest) {
       req = new XMLHttpRequest();
       if('withCredentials' in req) {
@@ -65,8 +66,8 @@ window.howitzer_stat_url = "http://localhost:7000"; //change it!
           setStatusInfo('Loading');
           var currentPage = this.getAttribute('data-page-name');
           cacheCurrentPage(currentPage);
-          var url = buildUrl({pageName: currentPage});
-          xdr('GET', url, featuresByClassNameHandler, errorHandler);
+          var data = {pageName: currentPage};
+          xdr('GET', data, featuresByClassNameHandler, errorHandler);
         }
       });
     }
@@ -193,7 +194,7 @@ window.howitzer_stat_url = "http://localhost:7000"; //change it!
     var baseHtml = '<ol id="hs_tooltip"></ol>' + "\n" + '<div id="hs_popup" style="display: none;">';
     document.getElementById('hs_wrapper').innerHTML = baseHtml;
     setStatusInfo('Page identification');
-    var url = buildUrl({url: document.URL || window.location.href, title: document.title});
-    xdr('GET', url, pageClassesByTitleAndUrlHandler, errorHandler);
+    var data = {url: document.URL || window.location.href, title: document.title};
+    xdr('GET', data, pageClassesByTitleAndUrlHandler, errorHandler);
   };
 })();
