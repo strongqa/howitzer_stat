@@ -46,36 +46,49 @@
     };
 
     var pageClassesByTitleAndUrlHandler = function(data) {
-        var pageName = JSON.parse(data).page[0];
 
-        var statButton = document.getElementById('howitzer_stat_btn');
+        var statButtonsContainer = document.getElementById('how_stat_result');
 
-        var pageNameElement = document.getElementById('howitzer_stat_page_name');
-        if (pageName == null) {
-            pageNameElement.innerHTML = 'Unknown Page';
-            statButton.addEventListener('click', function () {
-                alert("Page is Unknown, stats can't be loaded.")
-            });
-        } else {
-            pageNameElement.innerHTML = pageName;
-            pageNameElement.setAttribute('data-page-name', pageName);
-            statButton.addEventListener('click', function () {
-                if (this.className.indexOf('non-active') >= 0) {
-                    if (document.getElementById('how_stat_info').innerHTML == ''){
-                        pageNameElement.innerHTML = 'Loading...';
-                        xdr('GET', {"pageName": pageName}, featuresByClassNameHandler, errorHandler);
+        _.each(JSON.parse(data).page, function (pageName){
+            //        var pageName = JSON.parse(data).page[0];
+
+//        var statButton = document.getElementById('howitzer_stat_btn');
+            var statButton = document.createElement('div');
+            statButton.setAttribute('class', 'how-stat-button non-active');
+            statButton.setAttribute('style', 'display: none;');
+
+//        var pageNameElement = document.getElementById('howitzer_stat_page_name');
+            var pageNameElement = document.createElement('div');
+            pageNameElement.setAttribute('class','how-stat-number');
+            if (pageName == null) {
+                pageNameElement.innerHTML = 'Unknown Page';
+                statButton.addEventListener('click', function () {
+                    alert("Page is Unknown, stats can't be loaded.")
+                });
+            } else {
+                pageNameElement.innerHTML = pageName;
+                pageNameElement.setAttribute('data-page-name', pageName);
+                statButton.addEventListener('click', function () {
+                    if (this.className.indexOf('non-active') >= 0) {
+                        if (document.getElementById('how_stat_info').innerHTML == ''){
+                            pageNameElement.innerHTML = 'Loading...';
+                            xdr('GET', {pageName: pageName}, featuresByClassNameHandler, errorHandler);
+                        } else {
+                            document.getElementById('how_stat_popup').setAttribute('style','display: block;');
+                            this.className = this.className.replace('non-active', 'active');
+                        }
                     } else {
-                        document.getElementById('how_stat_popup').setAttribute('style','display: block;');
-                        this.className = this.className.replace('non-active', 'active');
+                        document.getElementById('how_stat_popup').setAttribute('style','display: none;');
+                        this.className = this.className.replace('active', 'non-active');
                     }
-                } else {
-                    document.getElementById('how_stat_popup').setAttribute('style','display: none;');
-                    this.className = this.className.replace('active', 'non-active');
-                }
-            });
-        }
-        statButton.setAttribute('style', 'display: block;');
+                });
+            }
+            statButton.setAttribute('style', 'display: block;');
+            statButton.appendChild(pageNameElement);
+            statButtonsContainer.appendChild(statButton);
+        });
     };
+
 
     var featuresByClassNameHandler = function(data){
         var template = document.getElementById('cucumberStat').innerHTML;
@@ -87,10 +100,11 @@
             statDataElement.innerHTML = _.template(template, {features: featuresData});
         }
         document.getElementById('how_stat_popup').setAttribute('style','display: block;');
-        var statButton = document.getElementById('howitzer_stat_btn');
-        statButton.className = statButton.className.replace('non-active', 'active');
-        var pageNameElement = document.getElementById('howitzer_stat_page_name');
-        pageNameElement.innerHTML = pageNameElement.getAttribute('data-page-name');
+
+//        var statButton = document.getElementById('howitzer_stat_btn');
+//        statButton.className = statButton.className.replace('non-active', 'active');
+//        var pageNameElement = document.getElementById('howitzer_stat_page_name');
+//        pageNameElement.innerHTML = pageNameElement.getAttribute('data-page-name');
     };
 
     window.onload = function () {
