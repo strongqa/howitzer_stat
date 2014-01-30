@@ -17,7 +17,7 @@
 }
 
 #hs_tooltip {
-    position: absolute;
+    position: fixed;
     top:0;
     left:0;
     padding: 0;
@@ -56,7 +56,8 @@
 .hs-number {
     color: #666;
     font-family: Consolas, monospace, serif;
-    padding: 2px;
+    padding: 0 5px;
+    line-height: 1.5em;
     font-size: 11px;
 }
 
@@ -88,6 +89,10 @@
     padding: 5px 20px;
 }
 
+#hs_popup .scenario {
+    margin-top: 1px;
+}
+
 #hs_popup .background h2 {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 500;
@@ -98,6 +103,8 @@
     color: #fff;
     padding: 3px 5px;
     font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
 }
 #hs_popup .scenario h3 {
     background: #65C400;
@@ -105,6 +112,8 @@
     padding: 3px 5px;
     margin: 10px 0;
     font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
 }
 #hs_popup #templateTarget {font-size: 10px;color: black;}
 #hs_popup .used-step {font-weight: bold;}
@@ -114,12 +123,15 @@
 #hs_popup .cucumber .step_name, td .step_name, th .step_name {float:left;}
 #hs_popup .cucumber .step_file, td .step_file, th .step_file {text-align:right;color:#999999;}
 #hs_popup .cucumber .scenario_file, td .scenario_file, th .scenario_file {float:right;color:#999999;}
+#hs_popup .cucumber .scenario_file {
+    margin-right: 5px;
+}
 #hs_popup .cucumber .tag, td .tag, th .tag {font-weight: bold;color:#246ac1;}
 #hs_popup .cucumber table, td table, th table {border-collapse:collapse;}
 #hs_popup .cucumber table td, td table td, th table td {padding: 3px 10px 3px 10px; border: 1px solid #cccccc;}
 #hs_popup .cucumber ol, td ol, th ol {list-style:none;margin:0px;padding: 0px;}
 #hs_popup .cucumber ol li.step, td ol li.step, th ol li.step {
-    padding: 3px 3px 3px 18px;
+    padding: 3px 5px 3px 18px;
     margin: 3px 0px 3px 5px;
 }
 #hs_popup .cucumber ol li.passed, td ol li.passed, th ol li.passed,
@@ -144,10 +156,18 @@
 
 #hs_popup .step table {
     margin-top: 10px;
+    margin-right: 18px;
 }
 
-#hs_popup .cucumber table tr:nth-child(odd) td, table tr:nth-child(odd) td {
+#hs_popup table tr:nth-child(odd) td {
     background-color: #f0ffff;
+}
+
+#hs_popup table tr {
+    word-break: break-all;
+    word-wrap: break-word;
+    white-space: pre;
+    white-space: pre-wrap;
 }
 
 #hs_popup .cucumber table tr:first-of-type td {
@@ -163,6 +183,7 @@
     padding: 5px 5px;
     border-radius: 2px;
     color: blue;
+    margin-right: 18px;
 }
 
 #hs_popup a.hs_popup__link,
