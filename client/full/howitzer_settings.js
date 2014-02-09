@@ -1,0 +1,1 @@
+window.howitzer_stat_url = "http://localhost:7000"; //change it!

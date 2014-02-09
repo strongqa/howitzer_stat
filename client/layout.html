@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Example of HTML5 layout</title>
+  <link href="full/howitzer_stat.css" rel="stylesheet" type="text/css">
+  <script type="text/javascript" src="http://underscorejs.org/underscore-min.js"></script>
+  <script type="text/javascript" src="full/howitzer_settings.js"></script>
+  <script type="text/javascript" src="full/howitzer_stat.js"></script>
+  <script type="text/template" id="cucumberStat">
+    <div id="hs_result">
+      <a id="hs_collapse_all" class="hs_popup__link" href="#">Collapse All</a>
+      <a id="hs_expand_all" class="hs_popup__link" href="#">Expand All</a>
+      <div class="clearfix"></div>
+      <div id="hs_popup__close">x</div>
+      <div id="hs_info"></div>
+      <div class="cucumber">
+        <% _.each(features,function(feature, index, list){ %>
+          <div class="feature">
+            <span class="tag"><%=feature.tags%></span>
+            <div id="feature_container_<%=index%>" class="feature-container">
+              <span class="scenario_file"><%=feature.path_to_file%>:<span><%=feature.line%></span></span>
+              <h2><span class="val">Feature: <%=feature.name%></span></h2>
+              <p id="fd_<%=index%>" class="narrative collapsible"><%=feature.description.split("\n")[0]%></br>
+                <%=feature.description.split("\n")[1]%></br>
+                <%=feature.description.split("\n")[2]%></br>
+              </p>
+            </div>
+            <% _.each(feature.scenarios,function(scenario,key,list){ %>
+              <div id="sce_<%=index%>_<%=key%>" class="scenario">
+                <span class="tag"><%=scenario.tags%></span>
+                <span class="scenario_file"><%=scenario.path_to_file%>:<span><%=scenario.line%></span></span>
+                <h3><span class="keyword"><%=scenario.keyword%>: </span><span class="val"><%=scenario.title%></span></h3>
+                <ol id="sce_items_<%=index%>_<%=key%>" class="collapsible">
+                  <% if (scenario.background != null){ %>
+                    <% _.each(scenario.background.steps, function(step,key,list){ %>
+                      <li class="background step <%= step.used == null ? 'skipped' : 'passed' %>">
+                        <div class="step_name">
+                          <span class="keyword"><%=step.keyword%></span>
+                          <span class="step val"><%=step.name%></span>
+                        </div>
+                        <div class="step_file"><span><%=step.path_to_file%>:<span><%=step.line%></span></span></div>
+                        <% if (step.multiline_arg != null){ %>
+                          <% if (step.multiline_arg.type == "table"){ %>
+                            <table>
+                              <% _.each(step.multiline_arg.content, function(rows,key,list){ %>
+                              <tr class="step">
+                                <% _.each(rows, function(row,key,list){ %>
+                                  <td class="step"><div><span class="step param"><%=row%></span></div></td>
+                                <% }); %>
+                              </tr>
+                              <% }); %>
+                            </table>
+                          <% } %>
+                          <% if (step.multiline_arg.type == "doc_string"){ %>
+                            <pre class="val"><%=step.multiline_arg.content%></pre>
+                          <% } %>
+                        <% } %>
+                      </li>
+                    <% }); %>
+                  <% } %>
+                  <% _.each(scenario.steps, function(step,key,list){ %>
+                    <li class="step <%= step.used == null ? 'skipped' : 'passed' %>">
+                      <div class="step_name">
+                        <span class="keyword"><%=step.keyword%> </span>
+                        <span class="step val"><%=step.name%></span>
+                      </div>
+                      <div class="step_file"><span><%=step.path_to_file%>:<%=step.line%></span></div>
+                      <% if (step.multiline_arg != null) { %>
+                        <% if (step.multiline_arg.type == "table"){ %>
+                          <table>
+                            <% _.each(step.multiline_arg.content, function(rows,key,list){ %>
+                              <tr class="step">
+                                <% _.each(rows, function(row,key,list){ %>
+                                  <td class="step"><div><span class="step param"><%=row%></span></div></td>
+                                <% }); %>
+                              </tr>
+                            <% }); %>
+                          </table>
+                        <% } %>
+                        <% if (step.multiline_arg.type == "doc_string"){ %>
+                          <pre class="val"><%=step.multiline_arg.content%></pre>
+                        <% } %>
+                      <% } %>
+                    </li>
+                  <% }); %>
+                </ol>
+              </div>
+            <% }); %>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  </script>
+</head>
+<body>
+<div id="hs_wrapper"></div>
+</body>
+</html>

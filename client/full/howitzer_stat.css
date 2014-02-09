@@ -93,19 +93,6 @@
     margin-top: 1px;
 }
 
-#hs_popup .background h2 {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 500;
-    line-height: 1.1;
-}
-#hs_popup .background h3 {
-    background: #666666;
-    color: #fff;
-    padding: 3px 5px;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
-}
 #hs_popup .scenario h3 {
     background: #65C400;
     color: #fff;
@@ -117,31 +104,82 @@
 }
 #hs_popup #templateTarget {font-size: 10px;color: black;}
 #hs_popup .used-step {font-weight: bold;}
-#hs_popup .cucumber, td, th {font: normal 13px "Helvetica Neue",Helvetica,Arial,sans-serif;background: white;color: black;}
-#hs_popup .cucumber .scenario h3, td .scenario h3, th .scenario h3 {padding:3px;margin:0; background: #65C400;}
-#hs_popup .cucumber div.feature, td div.feature, th div.feature {padding:2px;margin:0px 10px 5px 10px;}
-#hs_popup .cucumber .step_name, td .step_name, th .step_name {float:left;}
-#hs_popup .cucumber .step_file, td .step_file, th .step_file {text-align:right;color:#999999;}
-#hs_popup .cucumber .scenario_file, td .scenario_file, th .scenario_file {float:right;color:#999999;}
+#hs_popup .cucumber,
+#hs_popup td,
+#hs_popup th {
+    font: normal 13px "Helvetica Neue",Helvetica,Arial,sans-serif;background: white;color: black;
+}
+#hs_popup .cucumber .scenario h3,
+#hs_popup td .scenario h3,
+#hs_popup th .scenario h3 {
+    padding:3px;margin:0; background: #65C400;
+}
+#hs_popup .cucumber div.feature,
+#hs_popup td div.feature,
+#hs_popup th div.feature {
+    padding:2px;margin:0px 10px 5px 10px;
+}
+#hs_popup .cucumber .step_name,
+#hs_popup td .step_name,
+#hs_popup th .step_name {
+    float:left;
+}
+#hs_popup .cucumber .step_file,
+#hs_popup td .step_file,
+#hs_popup th .step_file {
+    text-align:right;color:#999999;
+}
+#hs_popup .cucumber .scenario_file,
+#hs_popup td .scenario_file,
+#hs_popup th .scenario_file {
+    float:right;color:#999999;
+}
 #hs_popup .cucumber .scenario_file {
     margin-right: 5px;
 }
-#hs_popup .cucumber .tag, td .tag, th .tag {font-weight: bold;color:#246ac1;}
-#hs_popup .cucumber table, td table, th table {border-collapse:collapse;}
-#hs_popup .cucumber table td, td table td, th table td {padding: 3px 10px 3px 10px; border: 1px solid #cccccc;}
-#hs_popup .cucumber ol, td ol, th ol {list-style:none;margin:0px;padding: 0px;}
-#hs_popup .cucumber ol li.step, td ol li.step, th ol li.step {
+#hs_popup .cucumber .tag,
+#hs_popup td .tag,
+#hs_popup th .tag {
+    font-weight: bold;color:#246ac1;
+}
+#hs_popup .cucumber table,
+#hs_popup td table,
+#hs_popup th table {
+    border-collapse:collapse;
+}
+#hs_popup .cucumber table td,
+#hs_popup td table td,
+#hs_popup th table td {
+    padding: 3px 10px 3px 10px; border: 1px solid #cccccc;
+}
+#hs_popup .cucumber ol,
+#hs_popup td ol,
+#hs_popup th ol {
+    list-style:none;margin:0px;padding: 0px;
+}
+#hs_popup .cucumber ol li.step,
+#hs_popup td ol li.step,
+#hs_popup th ol li.step {
     padding: 3px 5px 3px 18px;
     margin: 3px 0px 3px 5px;
 }
-#hs_popup .cucumber ol li.passed, td ol li.passed, th ol li.passed,
+
+#hs_popup li.background {
+    border-left-color: gray !important;
+}
+
+#hs_popup .cucumber ol li.passed,
+#hs_popup td ol li.passed,
+#hs_popup th ol li.passed,
 #hs_popup .cucumber ol li .passed_blue[span*="used-step"] {
     border-left: 5px solid #00ffff;
     border-bottom: 1px solid #00ffff;
     background: #caffff;
 }
 
-#hs_popup .cucumber ol li.skipped, td ol li.skipped, th ol li.skipped  {
+#hs_popup .cucumber ol li.skipped,
+#hs_popup td ol li.skipped,
+#hs_popup th ol li.skipped {
     background: #F0FFFF;
     border-bottom: 1px solid #00FFFF;
     border-left: 5px solid #00FFFF;

@@ -1,4 +1,3 @@
-window.howitzer_stat_url = "http://localhost:7000"; //change it!
 (function() {
   // - General -
 
@@ -130,7 +129,23 @@ window.howitzer_stat_url = "http://localhost:7000"; //change it!
   };
 
   var collapsibleElList = function() {
-    return document.getElementsByClassName('collapsible')
+    return document.getElementsByClassName('collapsible');
+  };
+
+  var featureContainerElList = function() {
+    return document.getElementsByClassName('feature-container');
+  };
+
+  var scenarioElList = function() {
+    return document.getElementsByClassName('scenario');
+  };
+
+  var featureDescriptionEl = function(uid) {
+    return document.getElementById('fd_' + uid);
+  };
+
+  var scenarioContainerEl = function(uid) {
+    return document.getElementById('sce_items_' + uid);
   };
 
   var closePopup = function() {
@@ -141,8 +156,30 @@ window.howitzer_stat_url = "http://localhost:7000"; //change it!
     popupEl().setAttribute('style','display: block;');
   };
 
+  var collapseOrExpand = function(el) {
+    if (el) {
+      if (el.getAttribute('style').lastIndexOf('none') == -1) {
+        el.setAttribute('style', 'display: none;');
+      } else {
+        el.setAttribute('style', '');
+      }
+    }
+  };
+
+  var collapseOrExpandScenario = function(uid) {
+    collapseOrExpand(scenarioContainerEl(uid));
+  };
+
+  var collapseOrExpandFeature = function(uid) {
+    collapseOrExpand(featureDescriptionEl(uid));
+  };
+
   var collapseAll = function() {
     _.each(collapsibleElList(), function (el){ el.setAttribute('style', 'display: none;')});
+  };
+
+  var expandAll = function() {
+    _.each(collapsibleElList(), function (el){ el.setAttribute('style', '')});
   };
 
   // - Handlers
@@ -182,8 +219,24 @@ window.howitzer_stat_url = "http://localhost:7000"; //change it!
     });
 
     expandAllEl().addEventListener('click', function(e){
-      _.each(collapsibleElList(), function (el){ el.setAttribute('style', '')});
+      expandAll();
       e.preventDefault();
+    });
+
+    _.each(featureContainerElList(), function(el){
+      var uid = el.id.replace('feature_container_', '');
+      el.addEventListener('click', function(e){
+        e.preventDefault();
+        collapseOrExpandFeature(uid);
+      })
+    });
+
+    _.each(scenarioElList(), function(el){
+      var uid = el.id.replace('sce_', '');
+      el.addEventListener('click', function(e){
+        e.preventDefault();
+        collapseOrExpandScenario(uid);
+      })
     });
 
     collapseAll();
