@@ -99,7 +99,7 @@
     padding: 3px 5px;
     margin: 10px 0;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 20px;
 }
 #hs_popup #templateTarget {font-size: 10px;color: black;}
@@ -249,4 +249,12 @@
 
 #hs_popup a:hover {
     text-decoration: underline;
+}
+
+#hs_popup .feature-container .scenario_file {
+    line-height: 36px;
+}
+
+#hs_popup .scenario .scenario_file {
+    line-height: 26px;
 }
