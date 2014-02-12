@@ -1,4 +1,6 @@
-path_to_source: "full_path_to_folder_with_howitzer_project"
+path_to_source: "" #full_path_to_folder_with_howitzer_project"
+link_to_web_repository: "" #link_to_web_folder_with_howitzer_project"
+web_repository: github
 
 # -- Capistrano settings
 application: howitzer_stat

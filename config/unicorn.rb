@@ -10,9 +10,9 @@ err_log = "#{rails_root}/log/unicorn_error.log"
 old_pid = pid_file + '.oldbin'
 
 timeout 30
-worker_processes API.settings.worker_processes
+worker_processes HowitzerStat.settings.worker_processes
 listen socket_file, :backlog => 1024
-listen API.settings.port, :tcp_nopush => true
+listen HowitzerStat.settings.port, :tcp_nopush => true
 
 pid pid_file
 stderr_path err_log

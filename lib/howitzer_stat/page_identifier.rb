@@ -32,7 +32,7 @@ class PageIdentifier
   private
 
   def parse_pages
-    Dir[File.join(API.settings.path_to_source, 'pages', '**', '*_page.rb')].each do |f|
+    Dir[File.join(HowitzerStat.settings.path_to_source, 'pages', '**', '*_page.rb')].each do |f|
       source = remove_comments(IO.read(f))
       page_name = parse_page_name(source)
       next unless page_name

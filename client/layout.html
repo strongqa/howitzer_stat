@@ -7,6 +7,13 @@
   <script type="text/javascript" src="http://underscorejs.org/underscore-min.js"></script>
   <script type="text/javascript" src="full/howitzer_stat_settings.js"></script>
   <script type="text/javascript" src="full/howitzer_stat.js"></script>
+  <script type="text/template" id="path_to_file_helper">
+    <% if (web_url == '') { %>
+      <%=path_to_file%>:<span><%=line%></span>
+    <% } else { %>
+      <a href="<%= web_url.replace(/\/$/, '') + '/' + feature.path_to_file + '#L' + feature.line %>"><%=path_to_file%>:<%=line%></a>
+    <% } %>
+  </script>
   <script type="text/template" id="cucumberStat">
     <div id="hs_result">
       <a id="hs_collapse_all" class="hs_popup__link" href="#">Collapse All</a>
@@ -15,11 +22,14 @@
       <div id="hs_popup__close">x</div>
       <div id="hs_info"></div>
       <div class="cucumber">
+        <% var path_helper = document.getElementById('path_to_file_helper').innerHTML %>
         <% _.each(features,function(feature, index, list){ %>
           <div class="feature">
             <span class="tag"><%=feature.tags%></span>
             <div id="feature_container_<%=index%>" class="feature-container">
-              <span class="scenario_file"><%=feature.path_to_file%>:<span><%=feature.line%></span></span>
+              <span class="scenario_file">
+                <% _.template(path_helper, {web_url: web_url, path_to_file: feature.path_to_file, line: feature.line}) %>
+              </span>
               <h2><span class="val">Feature: <%=feature.name%></span></h2>
               <p id="fd_<%=index%>" class="narrative collapsible"><%=feature.description.split("\n")[0]%></br>
                 <%=feature.description.split("\n")[1]%></br>
@@ -29,7 +39,9 @@
             <% _.each(feature.scenarios,function(scenario,key,list){ %>
               <div id="sce_<%=index%>_<%=key%>" class="scenario">
                 <span class="tag"><%=scenario.tags%></span>
-                <span class="scenario_file"><%=scenario.path_to_file%>:<span><%=scenario.line%></span></span>
+                <span class="scenario_file">
+                  <% _.template(path_helper, {web_url: web_url, path_to_file: scenario.path_to_file, line: scenario.line}) %>
+                </span>
                 <h3><span class="keyword"><%=scenario.keyword%>: </span><span class="val"><%=scenario.title%></span></h3>
                 <ol id="sce_items_<%=index%>_<%=key%>" class="collapsible">
                   <% if (scenario.background != null){ %>
@@ -39,7 +51,9 @@
                           <span class="keyword"><%=step.keyword%></span>
                           <span class="step val"><%=step.name%></span>
                         </div>
-                        <div class="step_file"><span><%=step.path_to_file%>:<span><%=step.line%></span></span></div>
+                        <div class="step_file"><span>
+                          <% _.template(path_helper, {web_url: web_url, path_to_file: step.path_to_file, step: feature.line}) %>
+                        </span></div>
                         <% if (step.multiline_arg != null){ %>
                           <% if (step.multiline_arg.type == "table"){ %>
                             <table>
@@ -65,7 +79,11 @@
                         <span class="keyword"><%=step.keyword%> </span>
                         <span class="step val"><%=step.name%></span>
                       </div>
-                      <div class="step_file"><span><%=step.path_to_file%>:<%=step.line%></span></div>
+                      <div class="step_file">
+                        <span>
+                        <% _.template(path_helper, {web_url: web_url, path_to_file: step.path_to_file, step: feature.line}) %>
+                        </span>
+                      </div>
                       <% if (step.multiline_arg != null) { %>
                         <% if (step.multiline_arg.type == "table"){ %>
                           <table>

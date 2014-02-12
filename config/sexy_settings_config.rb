@@ -5,7 +5,7 @@ SexySettings.configure do |config|
   config.path_to_custom_settings = File.join(config.path_to_project, 'config', "custom.yml")
 end
 
-module API
+module HowitzerStat
   def self.settings
     @settings ||= SexySettings::Base.instance
   end

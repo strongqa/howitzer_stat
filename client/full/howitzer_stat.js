@@ -202,11 +202,11 @@
     clearToolTip();
     addButton(activePage);
 
-    var featuresData = JSON.parse(data).features;
+    var pageData = JSON.parse(data);
     if (featuresData == ''){
       popupEl().innerHTML = 'There is no tests that include this page.';
     } else {
-      popupEl().innerHTML = _.template(templateEl().innerHTML, {features: featuresData});
+      popupEl().innerHTML = _.template(templateEl().innerHTML, pageData);
     }
     closeBtnEl().addEventListener('click', function () {
       closePopup();
