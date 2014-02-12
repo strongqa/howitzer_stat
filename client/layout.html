@@ -11,7 +11,9 @@
     <% if (web_url == '') { %>
     <%=path_to_file%>:<span><%=line%></span>
     <% } else { %>
-    <a href="<%= web_url.replace(/\/$/, '') + '/' + path_to_file + '#L' + line %>" class="web_url"><%=path_to_file%>:<%=line%></a>
+    <a href="<%= web_url.replace(/\/$/, '') + '/' + path_to_file + '#L' + line %>" class="web_url" target="_new">
+      <%=path_to_file%>:<%=line%>
+    </a>
     <% } %>
   </script>
   <script type="text/template" id="cucumberStat">
