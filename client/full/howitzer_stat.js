@@ -140,6 +140,10 @@
     return document.getElementsByClassName('scenario');
   };
 
+  var fileLinkElList = function() {
+    return document.getElementsByClassName('web_url');
+  };
+
   var featureDescriptionEl = function(uid) {
     return document.getElementById('fd_' + uid);
   };
@@ -203,7 +207,7 @@
     addButton(activePage);
 
     var pageData = JSON.parse(data);
-    if (featuresData == ''){
+    if (pageData.features == ''){
       popupEl().innerHTML = 'There is no tests that include this page.';
     } else {
       popupEl().innerHTML = _.template(templateEl().innerHTML, pageData);
@@ -228,6 +232,12 @@
       el.addEventListener('click', function(e){
         e.preventDefault();
         collapseOrExpandFeature(uid);
+      })
+    });
+
+    _.each(fileLinkElList(), function(el){
+      el.addEventListener('click', function(e){
+        e.stopPropagation();
       })
     });
 
