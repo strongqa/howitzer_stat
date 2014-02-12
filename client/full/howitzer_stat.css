@@ -1,20 +1,20 @@
 #hs_popup__close {
-    width: 24px;
-    height: 24px;
-    background: #4f4f4f;
-    -moz-border-radius: 14px;
-    -webkit-border-radius: 14px;
-    border-radius: 14px;
-    color: #ffffff;
-    font-size: 16px;
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    text-align: center;
-    line-height: 24px;
-    text-transform: uppercase;
-    cursor: pointer;
-}
+     width: 24px;
+     height: 24px;
+     background: #4f4f4f;
+     -moz-border-radius: 14px;
+     -webkit-border-radius: 14px;
+     border-radius: 14px;
+     color: #ffffff;
+     font-size: 16px;
+     position: absolute;
+     top: 2px;
+     right: 2px;
+     text-align: center;
+     line-height: 24px;
+     text-transform: uppercase;
+     cursor: pointer;
+ }
 
 #hs_tooltip {
     position: fixed;
@@ -239,4 +239,14 @@
 
 #hs_popup .clearfix {
     clear: both;
+}
+
+#hs_popup a,
+#hs_popup a:visited {
+    color: #1E678A;
+    text-decoration: none;
+}
+
+#hs_popup a:hover {
+    text-decoration: underline;
 }
