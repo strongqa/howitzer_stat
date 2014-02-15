@@ -9,6 +9,7 @@ module HowitzerStat
 
     set :methodoverride, true
     set :protection, false
+    set :public_folder, File.join(File.dirname(__FILE__), '..', '..', 'client', 'full')
 
     # -- Sinatra helpers --
 
@@ -63,6 +64,10 @@ module HowitzerStat
       else
         pi.all_pages.to_json
       end
+    end
+
+    get '/test' do
+      IO.read('/Users/romikoops/RubyWS/personal/howitzer_stat/client/layout.html')
     end
 
     # -- misc handlers: error, not_found, etc. --

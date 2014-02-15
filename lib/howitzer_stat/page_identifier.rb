@@ -1,6 +1,9 @@
 module HowitzerStat
   class PageIdentifier
     NoValidationError = Class.new(StandardError)
+    TEST_URL_REGEXP = /\/test\?page=(\w+)/
+    TEST_TITLE = 'HowitzerStat'
+
     include Singleton
     def initialize
       @validations = {}
@@ -13,6 +16,7 @@ module HowitzerStat
 
     def identify_page(url, title)
       raise ArgumentError, "Url and title can not be blank. Actual: url=#{url}, title=#{title}" if url.nil? || url.empty? || title.nil? || title.empty?
+      return [test_page(url)] if test_page?(url, title)
       @validations.inject([]) do |res, (page, validation_data)|
         is_found = case [!!validation_data[:url], !!validation_data[:title]]
                      when [true, true]
@@ -31,6 +35,15 @@ module HowitzerStat
     end
 
     private
+
+    def test_page?(url, title)
+      TEST_URL_REGEXP === url && title == TEST_TITLE
+    end
+
+    def test_page(url)
+      page_name = url[TEST_URL_REGEXP, 1]
+      page_name if @validations.key?(page_name)
+    end
 
     def parse_pages
       Dir[File.join(HowitzerStat.settings.path_to_source, 'pages', '**', '*_page.rb')].each do |f|

@@ -129,3 +129,22 @@ The REST API to the app is described below.
     X-Content-Type-Options: nosniff
 
     {"status":404,"reason":"Page 'UnknownPage' was not found"}
+
+# Development
+
+* Create config/custom.yml with following properties:
+
+```
+path_to_source: ./demo
+port: 7000
+domain: localhost
+```
+
+* Specify correct path to real howitzer based project(path_to_source setting)
+* Start service:
+
+`unicorn 7000`
+
+* Navigate to url `http://localhost:7000/test?page=SomePage`
+
+where *SomePage* is one of Ruby page classes
