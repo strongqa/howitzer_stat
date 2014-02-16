@@ -7,7 +7,7 @@ require 'debugger'
 require_relative '../../config/sexy_settings_config'
 module HowitzerStat
   def self.log(msg)
-    puts "[INFO] #{msg}"
+    puts "[#{Time.now.utc}][INFO] #{msg}"
     t0 = Time.now
     yield
     duration = Time.now - t0
