@@ -9,13 +9,14 @@
       if('withCredentials' in req) {
         req.withCredentials = true;
         req.open(method, url, true);
+        req.onerror = function(){
+          errback(new Error('Is service running?'));
+        };
         req.onreadystatechange = function() {
-          if (req.readyState === 4) {
+          if (req.readyState == 4) {
             if (req.status >= 200 && req.status < 400) {
               callback(req.responseText);
-            } else if ( req.status == 0) {
-              errback(new Error('Bad request'));
-            } else {
+            } else if ( req.status != 0) { //we just ignore it
               errback(new Error('Response returned with non-OK status'));
             }
           }
