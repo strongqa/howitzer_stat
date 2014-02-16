@@ -24,13 +24,13 @@ module HowitzerStat
   Thread.abort_on_exception = true
   data_cacher
   page_identifier
-  page_refreshing_job = PageRefreshingJob.new
-  cache_refreshing_job = CacheRefreshingJob.new
+  Thread.main['page_refreshing_job'] = PageRefreshingJob.new
+  Thread.main['cache_refreshing_job'] = CacheRefreshingJob.new
 
   Thread.new do
     loop do
-      page_refreshing_job.perform
-      cache_refreshing_job.perform
+      Thread.main['page_refreshing_job'].perform
+      Thread.main['cache_refreshing_job'].perform
       sleep HowitzerStat.settings.fresh_data_interval_in_sec
     end
   end

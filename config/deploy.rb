@@ -45,20 +45,23 @@ end
 
 # Unicorn control tasks
 namespace :deploy do
+  desc "restart unicorn"
   task :restart do
     run "if [ -f #{unicorn_pid} ]; then kill -USR2 `cat #{unicorn_pid}`; else cd #{deploy_to}/current && bundle exec unicorn -c #{unicorn_conf} -E #{rails_env} -D; fi"
   end
+  desc "start unicorn"
   task :start do
     run "cd #{deploy_to}/current && bundle exec unicorn -c #{unicorn_conf} -E #{rails_env} -D"
   end
+  desc "stop unicorn"
   task :stop do
     run "if [ -f #{unicorn_pid} ]; then kill -QUIT `cat #{unicorn_pid}`; fi"
   end
-
+  desc "update custom.yml"
   task :update_config do
     put YAML.dump(HowitzerStat.settings.custom), "#{deploy_to}/shared/config/custom.yml"
   end
-
+  desc "clean unicorn logs"
   task :clean_unicorn_logs do
     run "rm -f #{deploy_to}/current/log/unicorn*"
   end
