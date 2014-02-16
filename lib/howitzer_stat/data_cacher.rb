@@ -1,31 +1,10 @@
 module HowitzerStat
   class DataCacher
-    HASH_EXAMPLE = [
-        {
-            feature: {
-                name: '...',
-                description: '...',
-                path_to_file: '...',
-                line: 1
-            },
-            scenarios: [
-                {
-                    scenario: {name: '...', line: 10},
-                    steps: [
-                        { text: '...', line: 11, used: 'yes'},
-                        { text: '...', line: 12, used: 'no'}
-                    ]
-                }
-            ]
-        }
-    ]
-
     include Singleton
     def initialize
       @data = {cucumber: {}, rspec: {}}
       @data[:cucumber].default = {}
       @data[:rspec].default = {}
-      @data[:cucumber]['testpage'] = HASH_EXAMPLE
     end
 
     def page_cached?(page_class, type=:cucumber)
