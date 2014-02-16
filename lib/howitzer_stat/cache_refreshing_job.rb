@@ -1,14 +1,11 @@
 module HowitzerStat
   class CacheRefreshingJob
-    def initialize
-      @stat = {}
-    end
 
     def perform
       new_stat = gather_stat
-      unless @stat == new_stat
+      unless Thread.main['cache_stat'] == new_stat
         HowitzerStat::CucumberParser.new.run
-        @stat = new_stat
+        Thread.main['cache_stat'] = new_stat
       end
     end
 

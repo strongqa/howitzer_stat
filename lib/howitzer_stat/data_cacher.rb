@@ -4,6 +4,7 @@ module HowitzerStat
     attr_reader :data
 
     def initialize
+      puts "DataCacher initialization ...."
       @data = {cucumber: {}, rspec: {}}
       @data[:cucumber].default = {}
       @data[:rspec].default = {}
@@ -58,6 +59,6 @@ module HowitzerStat
   end
 
   def self.data_cacher
-    @dc ||= DataCacher.instance
+    DataCacher.instance
   end
 end

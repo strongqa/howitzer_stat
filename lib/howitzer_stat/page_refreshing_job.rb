@@ -1,14 +1,11 @@
 module HowitzerStat
   class PageRefreshingJob
-    def initialize
-      @stat = {}
-    end
 
     def perform
       new_stat = gather_stat
-      unless @stat == new_stat
+      unless Thread.main['page_stat'] == new_stat
         HowitzerStat.page_identifier.parse_pages
-        @stat = new_stat
+        Thread.main['page_stat'] = new_stat
       end
     end
 

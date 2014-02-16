@@ -5,6 +5,10 @@ module HowitzerStat
     TEST_TITLE = 'HowitzerStat'
 
     include Singleton
+    def initialize
+      puts "PageIdentifier initialization ...."
+      @validations = {}
+    end
 
     def all_pages
       @validations.keys
@@ -32,13 +36,15 @@ module HowitzerStat
 
     def parse_pages
       HowitzerStat.log("Parsing pages...") do
-        @validations = {}
+        res = {}
         Dir[File.join(HowitzerStat.settings.path_to_source, 'pages', '**', '*_page.rb')].each do |f|
           source = remove_comments(IO.read(f))
           page_name = parse_page_name(source)
           next unless page_name
-          @validations[page_name] = parse_validations(source)
+          res[page_name] = parse_validations(source)
         end
+        p res
+        @validations = res
       end
     end
 
@@ -82,6 +88,6 @@ module HowitzerStat
   end
 
   def self.page_identifier
-    @pi ||= PageIdentifier.instance
+    PageIdentifier.instance
   end
 end
