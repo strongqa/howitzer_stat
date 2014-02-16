@@ -73,7 +73,7 @@ module HowitzerStat
 
     get '/test' do
       set_headers if request.env["HTTP_ORIGIN"]
-      IO.read('/Users/romikoops/RubyWS/personal/howitzer_stat/client/layout.html')
+      IO.read('./client/layout.html')
     end
 
     # -- misc handlers: error, not_found, etc. --
