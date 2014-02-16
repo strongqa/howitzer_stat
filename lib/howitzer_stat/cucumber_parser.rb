@@ -1,6 +1,5 @@
 module HowitzerStat
   class CucumberParser
-    include Singleton
 
     def initialize
       smart_chdir do
@@ -12,12 +11,16 @@ module HowitzerStat
     end
 
     def run
-      smart_chdir do
-        @runtime.run!
-        prepare_page_matchers
-        @parsed_data = parse_features
-        @page_matchers.each do |page, matcher|
-          HowitzerStat.data_cacher.set(page, filter_features_by_page(matcher))
+      HowitzerStat.log("Parsing Cucumber features and caching them ...") do
+        smart_chdir do
+          @runtime.run!
+          prepare_page_matchers
+          @parsed_data = parse_features
+          data = @page_matchers.inject({}) do |res, (page, matcher)|
+            res[page] = filter_features_by_page(matcher)
+            res
+          end
+          HowitzerStat.data_cacher.set_all(data)
         end
       end
     end
@@ -157,7 +160,4 @@ module HowitzerStat
     end
   end
 
-  def self.cucumber_parser
-    @cp ||= CucumberParser.instance
-  end
 end

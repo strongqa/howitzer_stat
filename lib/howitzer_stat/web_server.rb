@@ -2,10 +2,6 @@ module HowitzerStat
   class WebServer < Sinatra::Base
 
     # -- Configuration --
-    before do
-      headers['Access-Control-Allow-Credentials'] = 'true'
-    end
-
     set :methodoverride, true
     set :protection, false
     set :public_folder, File.join(File.dirname(__FILE__), '..', '..', 'client', 'full')
@@ -18,6 +14,11 @@ module HowitzerStat
     end
 
     helpers do
+      def set_headers
+        headers['Access-Control-Allow-Credentials'] = 'true'
+        headers['Access-Control-Allow-Origin'] = request.env["HTTP_ORIGIN"]
+      end
+
       def json_status(code, reason)
         status code
         {
@@ -46,7 +47,7 @@ module HowitzerStat
     # --  API  --
 
     get '/pages/:page_class', :provides => :json do
-      headers['Access-Control-Allow-Origin'] = request.env["HTTP_ORIGIN"]
+      set_headers if request.env["HTTP_ORIGIN"]
       content_type :json
       if dc.page_cached?(params[:page_class])
         status 200
@@ -57,7 +58,7 @@ module HowitzerStat
     end
 
     get '/page_classes', :provides => :json do
-      headers['Access-Control-Allow-Origin'] = request.env["HTTP_ORIGIN"]
+      set_headers if request.env["HTTP_ORIGIN"]
       content_type :json
       status 200
       if params[:url] && params[:title]
@@ -68,6 +69,7 @@ module HowitzerStat
     end
 
     get '/test' do
+      set_headers if request.env["HTTP_ORIGIN"]
       IO.read('/Users/romikoops/RubyWS/personal/howitzer_stat/client/layout.html')
     end
 

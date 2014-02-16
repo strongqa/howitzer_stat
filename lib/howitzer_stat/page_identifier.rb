@@ -6,7 +6,6 @@ module HowitzerStat
 
     include Singleton
     def initialize
-      @validations = {}
       parse_pages
     end
 
@@ -34,6 +33,18 @@ module HowitzerStat
       end
     end
 
+    def parse_pages
+      HowitzerStat.log("Parsing pages...") do
+        @validations = {}
+        Dir[File.join(HowitzerStat.settings.path_to_source, 'pages', '**', '*_page.rb')].each do |f|
+          source = remove_comments(IO.read(f))
+          page_name = parse_page_name(source)
+          next unless page_name
+          @validations[page_name] = parse_validations(source)
+        end
+      end
+    end
+
     private
 
     def test_page?(url, title)
@@ -43,15 +54,6 @@ module HowitzerStat
     def test_page(url)
       page_name = url[TEST_URL_REGEXP, 1]
       page_name if @validations.key?(page_name)
-    end
-
-    def parse_pages
-      Dir[File.join(HowitzerStat.settings.path_to_source, 'pages', '**', '*_page.rb')].each do |f|
-        source = remove_comments(IO.read(f))
-        page_name = parse_page_name(source)
-        next unless page_name
-        @validations[page_name] = parse_validations(source)
-      end
     end
 
     def remove_comments(source)
