@@ -255,10 +255,11 @@
     collapseAll();
     showPopup();
   };
-
-  var baseHtml = '<ol id="hs_tooltip"></ol>' + "\n" + '<div id="hs_popup" style="display: none;">';
-  document.getElementById('hs_wrapper').innerHTML = baseHtml;
-  setStatusInfo('Page identification');
-  var data = {url: document.URL || window.location.href, title: document.title};
-  xdr('GET', data, pageClassesByTitleAndUrlHandler, errorHandler);
+  window.onload = function () {
+    var baseHtml = '<ol id="hs_tooltip"></ol>' + "\n" + '<div id="hs_popup" style="display: none;">';
+    document.getElementById('hs_wrapper').innerHTML = baseHtml;
+    setStatusInfo('Page identification');
+    var data = {url: document.URL || window.location.href, title: document.title};
+    xdr('GET', data, pageClassesByTitleAndUrlHandler, errorHandler);
+  };
 })();
