@@ -1,5 +1,8 @@
 module HowitzerStat
   class WebServer < Sinatra::Base
+    configure :production, :development do
+      enable :logging
+    end
 
     # -- Configuration --
     set :methodoverride, true

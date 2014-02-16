@@ -22,9 +22,12 @@ require_relative './cache_refreshing_job'
 
 module HowitzerStat
   Thread.abort_on_exception = true
+  data_cacher
+  page_identifier
+  page_refreshing_job = PageRefreshingJob.new
+  cache_refreshing_job = CacheRefreshingJob.new
+
   Thread.new do
-    page_refreshing_job = PageRefreshingJob.new
-    cache_refreshing_job = CacheRefreshingJob.new
     loop do
       page_refreshing_job.perform
       cache_refreshing_job.perform

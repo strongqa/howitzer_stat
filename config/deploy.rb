@@ -58,4 +58,8 @@ namespace :deploy do
   task :update_config do
     put YAML.dump(HowitzerStat.settings.custom), "#{deploy_to}/shared/config/custom.yml"
   end
+
+  task :clean_unicorn_logs do
+    run "rm -f #{deploy_to}/current/log/unicorn*"
+  end
 end

@@ -5,9 +5,6 @@ module HowitzerStat
     TEST_TITLE = 'HowitzerStat'
 
     include Singleton
-    def initialize
-      parse_pages
-    end
 
     def all_pages
       @validations.keys
