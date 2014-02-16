@@ -3,8 +3,7 @@ module HowitzerStat
 
     # -- Configuration --
     before do
-      headers 'Access-Control-Allow-Origin' => '*',
-              'Access-Control-Allow-Methods' => ['GET']
+      headers['Access-Control-Allow-Credentials'] = 'true'
     end
 
     set :methodoverride, true
@@ -47,6 +46,7 @@ module HowitzerStat
     # --  API  --
 
     get '/pages/:page_class', :provides => :json do
+      headers['Access-Control-Allow-Origin'] = request.env["HTTP_ORIGIN"]
       content_type :json
       if dc.page_cached?(params[:page_class])
         status 200
@@ -57,6 +57,7 @@ module HowitzerStat
     end
 
     get '/page_classes', :provides => :json do
+      headers['Access-Control-Allow-Origin'] = request.env["HTTP_ORIGIN"]
       content_type :json
       status 200
       if params[:url] && params[:title]

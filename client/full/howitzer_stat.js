@@ -1,18 +1,20 @@
 (function() {
   // - General -
 
-  function xdr(method, data, callback, errback) {
+  var xdr = function (method, data, callback, errback) {
     var req;
     var url = buildUrl(data);
     if (XMLHttpRequest) {
       req = new XMLHttpRequest();
       if('withCredentials' in req) {
+        req.withCredentials = true;
         req.open(method, url, true);
-        req.onerror = errback;
         req.onreadystatechange = function() {
           if (req.readyState === 4) {
             if (req.status >= 200 && req.status < 400) {
               callback(req.responseText);
+            } else if ( req.status == 0) {
+              errback(new Error('Bad request'));
             } else {
               errback(new Error('Response returned with non-OK status'));
             }
@@ -31,7 +33,7 @@
     } else {
       errback(new Error('CORS not supported'));
     }
-  }
+  };
 
   var buildUrl = function(data){
     if (data.pageName) {
@@ -190,7 +192,7 @@
 
   var errorHandler = function(error){
     console.log(error);
-    setStatusError(null)
+    setStatusError(error.message)
   };
 
   var pageClassesByTitleAndUrlHandler = function(data) {
@@ -253,11 +255,9 @@
     showPopup();
   };
 
-  window.onload = function () {
-    var baseHtml = '<ol id="hs_tooltip"></ol>' + "\n" + '<div id="hs_popup" style="display: none;">';
-    document.getElementById('hs_wrapper').innerHTML = baseHtml;
-    setStatusInfo('Page identification');
-    var data = {url: document.URL || window.location.href, title: document.title};
-    xdr('GET', data, pageClassesByTitleAndUrlHandler, errorHandler);
-  };
+  var baseHtml = '<ol id="hs_tooltip"></ol>' + "\n" + '<div id="hs_popup" style="display: none;">';
+  document.getElementById('hs_wrapper').innerHTML = baseHtml;
+  setStatusInfo('Page identification');
+  var data = {url: document.URL || window.location.href, title: document.title};
+  xdr('GET', data, pageClassesByTitleAndUrlHandler, errorHandler);
 })();
