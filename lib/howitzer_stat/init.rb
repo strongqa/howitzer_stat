@@ -19,19 +19,3 @@ require_relative './data_cacher'
 require_relative './cucumber_parser'
 require_relative './page_refreshing_job'
 require_relative './cache_refreshing_job'
-
-module HowitzerStat
-  Thread.abort_on_exception = true
-  data_cacher
-  page_identifier
-  Thread.main['page_stat'] = {}
-  Thread.main['cache_stat'] = {}
-
-  Thread.new do
-    loop do
-      PageRefreshingJob.new.perform
-      CacheRefreshingJob.new.perform
-      sleep HowitzerStat.settings.fresh_data_interval_in_sec
-    end
-  end
-end

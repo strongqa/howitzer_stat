@@ -45,6 +45,11 @@ module HowitzerStat
       def pi
         HowitzerStat.page_identifier
       end
+
+      def refresh_data_if_code_changed
+        PageRefreshingJob.perform
+        CacheRefreshingJob.perform
+      end
     end
 
     # --  API  --
@@ -52,6 +57,7 @@ module HowitzerStat
     get '/pages/:page_class', :provides => :json do
       set_headers if request.env["HTTP_ORIGIN"]
       content_type :json
+      refresh_data_if_code_changed
       if dc.page_cached?(params[:page_class])
         status 200
         dc.get(params[:page_class]).to_json
@@ -64,6 +70,7 @@ module HowitzerStat
       set_headers if request.env["HTTP_ORIGIN"]
       content_type :json
       status 200
+      refresh_data_if_code_changed
       if params[:url] && params[:title]
         {page: pi.identify_page(params[:url], params[:title])}.to_json
       else
