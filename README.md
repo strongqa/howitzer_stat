@@ -17,11 +17,11 @@ Coming soon...
 
 ## Documentation
 
-[Ruby installation in production](https://github.com/romikoops/howitzer_stat/wiki/Ruby-installation-in-production)
-[Deployment to production](https://github.com/romikoops/howitzer_stat/wiki/Deployment-to-production)
-[Settings List](https://github.com/romikoops/howitzer_stat/wiki/Settings-List)
-[REST API Documentation](https://github.com/romikoops/howitzer_stat/wiki/REST-API)
-[Howitzer](http://romikoops.github.io/howitzer)
+* [Ruby installation in production](https://github.com/romikoops/howitzer_stat/wiki/Ruby-installation-in-production)
+* [Deployment to production](https://github.com/romikoops/howitzer_stat/wiki/Deployment-to-production)
+* [Settings List](https://github.com/romikoops/howitzer_stat/wiki/Settings-List)
+* [REST API Documentation](https://github.com/romikoops/howitzer_stat/wiki/REST-API)
+* [Howitzer](http://romikoops.github.io/howitzer)
 
 ## Contributing
 
@@ -31,7 +31,7 @@ Coming soon...
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
-## Development Environment
+### Development Environment
 
 * Create config/custom.yml with following properties:
 
