@@ -23,11 +23,12 @@ Coming soon...
 * [REST API Documentation](https://github.com/romikoops/howitzer_stat/wiki/REST-API)
 * [Howitzer](http://romikoops.github.io/howitzer)
 
-## Limitation
+## Limitations
 
 * It does not support many branches and environments
 * It only support Cucumber scenario now
-* It is still required to cover by unit tests(both client and server part)
+* It is still required to be covered by unit tests(both client and server part)
+* Demo web app with HowitzerStat is absent
 
 Hopefully these limitations will be eliminated in upcoming releases
 
