@@ -13,7 +13,12 @@ This extension consists from 2 parts:
 
 ## Demo
 
-Coming soon...
+* [Screenshot1](https://raw2.github.com/romikoops/howitzer_stat/gh-pages/images/1_accounts_page.png)
+* [Screenshot2](https://raw2.github.com/romikoops/howitzer_stat/gh-pages/images/2_accounts_page_with_stat.png)
+* [Screenshot3](https://raw2.github.com/romikoops/howitzer_stat/gh-pages/images/3_accounts_page_with_expanded_stat.png)
+
+Real demo application is coming soon...
+
 
 ## Documentation
 
