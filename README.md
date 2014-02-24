@@ -24,6 +24,7 @@ Real demo application is coming soon...
 
 * [Ruby installation in production](https://github.com/romikoops/howitzer_stat/wiki/Ruby-installation-in-production)
 * [Deployment to production](https://github.com/romikoops/howitzer_stat/wiki/Deployment-to-production)
+* [Client integration](https://github.com/romikoops/howitzer_stat/wiki/Client-integration)
 * [Settings List](https://github.com/romikoops/howitzer_stat/wiki/Settings-List)
 * [REST API Documentation](https://github.com/romikoops/howitzer_stat/wiki/REST-API)
 * [Howitzer](http://romikoops.github.io/howitzer)
