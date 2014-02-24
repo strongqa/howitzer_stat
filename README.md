@@ -1,7 +1,7 @@
 Howitzer Pages Usage Statistics
 ===============================
 
-Howitzer extension for test coverage visualisation of each your web application page
+[Howitzer](http://romikoops.github.io/howitzer/) extension for test coverage visualisation of each your web application page
 
 This extension consists from 2 parts:
 - Sinatra based REST web service
