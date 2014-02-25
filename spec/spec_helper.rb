@@ -1,5 +1,9 @@
 require 'rubygems'
 require 'simplecov'
+require 'stringio'
+require 'singleton'
+require 'json'
+require 'cucumber/cli/main'
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
     SimpleCov::Formatter::HTMLFormatter
@@ -17,7 +21,16 @@ end
 
 require 'rspec'
 
-Dir[File.join(CalcService.root, "spec/support/**/*.rb")].each {|f| require f}
+Dir[File.join(File.dirname(__FILE__), 'support', '**', '*.rb')].each{ |f| require f }
+
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
+end
+
+def project_path
+  File.expand_path(File.join(File.dirname(__FILE__), '..'))
+end
+
+def lib_path
+  File.join(project_path, 'lib')
 end
