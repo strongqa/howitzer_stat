@@ -1,4 +1,4 @@
-Howitzer Pages Usage Statistics
+Howitzer Stat
 ===============================
 
 [![Build Status](https://api.travis-ci.org/romikoops/howitzer_stat.png)](http://travis-ci.org/romikoops/howitzer_stat)
