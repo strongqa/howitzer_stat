@@ -11,11 +11,11 @@ module HowitzerStat
     end
 
     def empty_cucumber
-      @data[:cucumber] = {}
+      @data[:cucumber] = Hash.new({})
     end
 
     def empty_rspec
-      @data[:rspec] = {}
+      @data[:rspec] = Hash.new({})
     end
 
     def page_cached?(page_class, type=:cucumber)

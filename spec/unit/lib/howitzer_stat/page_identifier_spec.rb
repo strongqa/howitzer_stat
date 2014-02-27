@@ -1,5 +1,5 @@
 require 'spec_helper'
-require "#{lib_path}/howitzer_stat/page_identifier.rb"
+require "#{lib_path}/howitzer_stat/page_identifier"
 
 describe "HowitzerStat::PageIdentifier" do
   let(:pi) { HowitzerStat::PageIdentifier.instance }
