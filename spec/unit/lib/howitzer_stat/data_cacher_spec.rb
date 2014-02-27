@@ -43,6 +43,64 @@ describe "HowitzerStat::DataCacher" do
     end
   end
 
+  describe "#page_cached?" do
+    subject { dc.page_cached?(*args) }
+    before do
+      data[:cucumber]['TestPage1'] = double
+      data[:rspec]['TestPage2'] = double
+    end
+    context "when 'type' specified" do
+      let(:args) { [page_name, :rspec ] }
+      context "when class is symbol" do
+        context "when page is cached" do
+          let(:page_name) { :TestPage2 }
+          it { expect(subject).to be_true }
+        end
+        context "when page is not cached" do
+          let(:page_name) { :TestPage3 }
+          it { expect(subject).to be_false }
+        end
+      end
+      context "when class is string" do
+        context "and class name is empty" do
+          let(:page_name) { '' }
+          it { expect(subject).to be_false }
+        end
+        context "and class name is not empty" do
+          let(:page_name) { 'TestPage2' }
+          it { expect(subject).to be_true }
+        end
+      end
+      context "when class is nil" do
+        let(:page_name) { nil }
+        it { expect(subject).to be_false }
+      end
+      context "when class is ruby class" do
+        let(:page_name) do
+           Class.new do
+             def self.to_s
+               'TestPage2'
+             end
+           end
+        end
+        it { expect(subject).to be_true }
+      end
+    end
+    context "when 'type' default" do
+      let(:args) { [page_name ] }
+      context "when class is symbol" do
+        context "when page is cached" do
+          let(:page_name) { :TestPage1 }
+          it { expect(subject).to be_true }
+        end
+        context "when page is not cached" do
+          let(:page_name) { :TestPage4 }
+          it { expect(subject).to be_false }
+        end
+      end
+    end
+  end
+
 end
 
 describe "HowitzerStat" do
