@@ -16,7 +16,7 @@ module HowitzerStat
 
     def identify_page(url, title)
       raise ArgumentError, "Url and title can not be blank. Actual: url=#{url}, title=#{title}" if url.nil? || url.empty? || title.nil? || title.empty?
-      return [test_page(url)] if test_page?(url, title)
+      return [test_page(url)].compact if test_page?(url, title)
       @validations.inject([]) do |res, (page, validation_data)|
         is_found = case [!!validation_data[:url], !!validation_data[:title]]
                      when [true, true]
