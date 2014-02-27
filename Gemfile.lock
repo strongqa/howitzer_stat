@@ -45,6 +45,7 @@ GEM
     rack-protection (1.5.1)
       rack
     raindrops (0.13.0)
+    rake (0.9.6)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -80,6 +81,7 @@ DEPENDENCIES
   debugger
   fuubar
   json
+  rake
   rspec
   sexy_settings
   simplecov
