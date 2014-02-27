@@ -12,7 +12,7 @@ This extension consists from 2 parts:
 
 ## Requirements
 
-**Ruby 1.9.3++**
+**Ruby 1.9.3+**
 
 ## Demo
 
