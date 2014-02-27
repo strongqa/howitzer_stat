@@ -1,6 +1,9 @@
 Howitzer Pages Usage Statistics
 ===============================
 
+[![Build Status](https://api.travis-ci.org/romikoops/howitzer_stat.png)](http://travis-ci.org/romikoops/howitzer_stat)
+[![Dependency Status](https://gemnasium.com/romikoops/howitzer_stat.png)](https://gemnasium.com/romikoops/howitzer_stat)
+
 [Howitzer](http://romikoops.github.io/howitzer/) extension for test coverage visualisation of each your web application page
 
 This extension consists from 2 parts:
