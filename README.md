@@ -1,10 +1,10 @@
 Howitzer Stat
 ===============================
 
-[![Build Status](https://travis-ci.org/romikoops/howitzer_stat.png?branch=master)](https://travis-ci.org/romikoops/howitzer_stat)
+[![Build Status](https://travis-ci.org/strongqa/howitzer_stat.png?branch=master)](https://travis-ci.org/strongqa/howitzer_stat)
 [![Dependency Status](https://gemnasium.com/romikoops/howitzer_stat.png)](https://gemnasium.com/romikoops/howitzer_stat)
 
-[Howitzer](http://romikoops.github.io/howitzer/) extension for test coverage visualisation of each your web application page
+[Howitzer](http://strongqa.github.io/howitzer/) extension for test coverage visualisation of each your web application page
 
 This extension consists from 2 parts:
 - Sinatra based REST web service
@@ -25,12 +25,12 @@ Real demo application is coming soon...
 
 ## Documentation
 
-* [Ruby installation in production](https://github.com/romikoops/howitzer_stat/wiki/Ruby-installation-in-production)
-* [Deployment to production](https://github.com/romikoops/howitzer_stat/wiki/Deployment-to-production)
-* [Client integration](https://github.com/romikoops/howitzer_stat/wiki/Client-integration)
-* [Settings List](https://github.com/romikoops/howitzer_stat/wiki/Settings-List)
-* [REST API Documentation](https://github.com/romikoops/howitzer_stat/wiki/REST-API)
-* [Howitzer](http://romikoops.github.io/howitzer)
+* [Ruby installation in production](https://github.com/strongqa/howitzer_stat/wiki/Ruby-installation-in-production)
+* [Deployment to production](https://github.com/strongqa/howitzer_stat/wiki/Deployment-to-production)
+* [Client integration](https://github.com/strongqa/howitzer_stat/wiki/Client-integration)
+* [Settings List](https://github.com/strongqa/howitzer_stat/wiki/Settings-List)
+* [REST API Documentation](https://github.com/strongqa/howitzer_stat/wiki/REST-API)
+* [Howitzer](http://strongqa.github.io/howitzer)
 
 ## Limitations
 
