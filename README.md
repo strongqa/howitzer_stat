@@ -16,9 +16,9 @@ This extension consists from 2 parts:
 
 ## Demo
 
-* <a href="https://raw2.github.com/romikoops/howitzer_stat/gh-pages/images/1_accounts_page.png" target="_blank">Screenshot1</a>
-* <a href="https://raw2.github.com/romikoops/howitzer_stat/gh-pages/images/2_accounts_page_with_stat.png" target="_blank">Screenshot2</a>
-* <a href="https://raw2.github.com/romikoops/howitzer_stat/gh-pages/images/3_accounts_page_with_expanded_stat.png" target="_blank">Screenshot3</a>
+* <a href="https://raw.githubusercontent.com/strongqa/howitzer_stat/gh-pages/images/1_accounts_page.png" target="_blank">Screenshot1</a>
+* <a href="https://raw.githubusercontent.com/strongqa/howitzer_stat/gh-pages/images/2_accounts_page_with_stat.png" target="_blank">Screenshot2</a>
+* <a href="https://raw.githubusercontent.com/strongqa/howitzer_stat/gh-pages/images/3_accounts_page_with_expanded_stat.png" target="_blank">Screenshot3</a>
 
 Real demo application is coming soon...
 
