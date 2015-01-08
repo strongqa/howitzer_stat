@@ -4,11 +4,11 @@ Howitzer Stat
 [![Build Status](https://travis-ci.org/strongqa/howitzer_stat.png?branch=master)](https://travis-ci.org/strongqa/howitzer_stat)
 [![Dependency Status](https://gemnasium.com/romikoops/howitzer_stat.png)](https://gemnasium.com/romikoops/howitzer_stat)
 
-[Howitzer](http://strongqa.github.io/howitzer/) extension for test coverage visualisation of each your web application page
+[Howitzer](http://strongqa.github.io/howitzer/) extension used for automated tests coverage visualization of web application pages.
 
-This extension consists from 2 parts:
-- Sinatra based REST web service
-- Client files(js, css, html markup) for injection to testable web app
+This extension consists of 2 components:
+- REST web service based on Sinatra
+- Client files (js, css, html markup) intended for injection to a testable web application
 
 ## Requirements
 
@@ -34,24 +34,24 @@ Real demo application is coming soon...
 
 ## Limitations
 
-* It does not support many branches and environments
-* It only support Cucumber scenario now
-* It is still required to be covered by unit tests(both client and server part)
-* Demo web app with HowitzerStat is absent
+* Not many branches and environments are supported.
+* Currently only Cucumber scenario can be applied.
+* The extension is to be covered by unit tests (both client and server part).
+* The Demo web application with HowitzerStat is not available.
 
-Hopefully these limitations will be eliminated in upcoming releases
+We expect to eliminate these limitations in the upcoming releases.
 
 ## Contributing
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
+1. Fork the project.
+2. Create a new feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Added some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+4. Push the branch (`git push origin my-new-feature`)
+5. Create a new pull request.
 
 ### Development Environment
 
-* Create config/custom.yml with following properties:
+* Create `config/custom.yml` with the following properties:
 
 ```
 path_to_source: ./demo
@@ -59,11 +59,11 @@ port: 7000
 domain: localhost
 ```
 
-* Specify correct path to real howitzer based project(path_to_source setting)
-* Start service:
+* Specify a correct path to the real howitzer based project (path_to_source setting).
+* Run a service:
 
 `unicorn -p 7000`
 
 * Navigate to url `http://localhost:7000/test?page=SomePage`
 
-where *SomePage* is one of Ruby page classes
+where *SomePage* is one of the Ruby page classes.
