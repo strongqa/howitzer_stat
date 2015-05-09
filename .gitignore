@@ -20,3 +20,4 @@ _yardoc
 doc/
 config/custom.yml
 .DS_Store
+.ruby-version
