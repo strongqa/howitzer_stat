@@ -11,4 +11,3 @@ gem 'cucumber'
 gem 'simplecov', require: false
 gem 'rspec', require: false
 gem 'fuubar', require: false
-gem 'debugger', require: false
